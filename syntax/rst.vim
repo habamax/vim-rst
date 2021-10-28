@@ -178,7 +178,7 @@ syn match rstStandaloneHyperlink contains=@NoSpell
       \ "\<\%(\%(\%(https\=\|file\|ftp\|gopher\)://\|\%(mailto\|news\):\)[^[:space:]'\"<>]\+\|www[[:alnum:]_-]*\.[[:alnum:]_-]\+\.[^[:space:]'\"<>]\+\)[[:alnum:]/]"
 
 syn region rstCodeBlock contained matchgroup=rstDirective
-      \ start="\c\%(sourcecode\|code\%(-block\)\=\)\ze::\_s*\n\z(\s\+\)"
+      \ start="\c\%(sourcecode\|code\%(-block\)\=\)\ze::\s*.*\_s*\n\z(\s\+\)"
       \ skip=+^$+
       \ end=+^\z1\@!+
       \ contains=rstDirectiveArguments,@NoSpell
