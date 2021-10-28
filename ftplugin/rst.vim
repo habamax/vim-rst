@@ -14,6 +14,8 @@ else
     let b:undo_ftplugin = undo_opts . undo_maps
 endif
 
+compiler rst2html
+
 setlocal comments=
 
 let &l:formatlistpat = '^\s*\%('
