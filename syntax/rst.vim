@@ -85,7 +85,7 @@ syn region rstHyperlinkTarget contains=rstStandaloneHyperlink matchgroup=rstDeli
       \ start=+^__\ze\_s+ skip=+^$+ end=+^\s\@!+
 
 syn region rstExDirective contained transparent matchgroup=rstDirective
-      \ start=+[[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*\ze::\_s+
+      \ start=+[[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*::\ze\_s+
       \ skip=+^$+
       \ end=+^\s\@!+ contains=rstLiteralBlock,rstDoubleColon,@rstInlineMarkup,@rstTables
 
@@ -178,16 +178,10 @@ syn match rstStandaloneHyperlink contains=@NoSpell
       \ "\<\%(\%(\%(https\=\|file\|ftp\|gopher\)://\|\%(mailto\|news\):\)[^[:space:]'\"<>]\+\|www[[:alnum:]_-]*\.[[:alnum:]_-]\+\.[^[:space:]'\"<>]\+\)[[:alnum:]/]"
 
 syn region rstCodeBlock contained matchgroup=rstDirective
-      \ start="\c\%(sourcecode\|code\%(-block\)\=\)\ze::\s*.*\_s*\n\z(\s\+\)"
+      \ start="\c\%(sourcecode\|code\%(-block\)\=\)::\s*.*\_s*\n\z(\s\+\)"
       \ skip=+^$+
       \ end=+^\z1\@!+
-      \ contains=rstDirectiveArguments,@NoSpell
-
-syn region rstDirectiveArguments contained
-      \ matchgroup=rstDelimiter
-      \ start=+::.*+
-      \ end=+^\s*$+ contains=@rstInlineMarkup
-
+      \ contains=@NoSpell
 
 syn cluster rstDirectives add=rstCodeBlock
 
@@ -215,10 +209,10 @@ for s:filetype in keys(g:rst_syntax_code_list)
     exe 'syn include @rstSyntax'.s:filetype.' syntax/'.s:filetype.'.vim'
     exe 'syn region rstCodeBlock'.s:filetype
           \. ' contained matchgroup=rstDirective'
-          \. ' start="\c\%(sourcecode\|code\%(-block\)\=\)\ze::\s\+'.s:alias_pattern.'\_s*\n\z(\s\+\)"'
+          \. ' start="\c\%(sourcecode\|code\%(-block\)\=\)::\s\+'.s:alias_pattern.'\_s*\n\z(\s\+\)"'
           \. ' skip=#^$#'
           \. ' end=#^\z1\@!#'
-          \. ' contains=rstDirectiveArguments,@NoSpell,@rstSyntax'.s:filetype
+          \. ' contains=@NoSpell,@rstSyntax'.s:filetype
     exe 'syn cluster rstDirectives add=rstCodeBlock'.s:filetype
 
     " reset 'isk' setting, if it has been changed
