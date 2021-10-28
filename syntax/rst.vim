@@ -81,8 +81,8 @@ syn region rstHyperlinkTarget contained contains=rstStandaloneHyperlink matchgro
 syn region rstHyperlinkTarget contained contains=rstStandaloneHyperlink matchgroup=rstDirective
       \ start='_`[^`\\]*\%(\\.[^`\\]*\)*`:\_s' skip=+^$+ end=+^\s\@!+
 
-syn region rstHyperlinkTarget contains=rstStandaloneHyperlink matchgroup=rstDirective
-      \ start=+^__\_s+ skip=+^$+ end=+^\s\@!+
+syn region rstHyperlinkTarget contains=rstStandaloneHyperlink matchgroup=rstDelimiter
+      \ start=+^__\ze\_s+ skip=+^$+ end=+^\s\@!+
 
 syn region rstExDirective contained transparent matchgroup=rstDirective
       \ start=+[[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*\ze::\_s+
