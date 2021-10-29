@@ -3,15 +3,15 @@ if exists("b:did_ftplugin")
 endif
 let b:did_ftplugin = 1
 
-let undo_opts = "setl flp< com<"
+let s:undo_opts = "setl flp< com<"
 
-let undo_maps = "| execute 'nunmap <buffer> ]]'"
+let s:undo_maps = "| execute 'nunmap <buffer> ]]'"
             \. "| execute 'nunmap <buffer> [['"
 
 if exists('b:undo_ftplugin')
-    let b:undo_ftplugin .= "|" . undo_opts . undo_maps
+    let b:undo_ftplugin .= "|" . s:undo_opts . s:undo_maps
 else
-    let b:undo_ftplugin = undo_opts . undo_maps
+    let b:undo_ftplugin = s:undo_opts . s:undo_maps
 endif
 
 compiler rst2html

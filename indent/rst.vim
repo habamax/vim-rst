@@ -7,12 +7,12 @@ if exists("b:did_indent")
 endif
 let b:did_indent = 1
 
-let undo_opts = "setl inde< indk< si<"
+let s:undo_opts = "setl inde< indk< si<"
 
 if exists('b:undo_indent')
-    let b:undo_indent .= "|" . undo_opts
+    let b:undo_indent .= "|" . s:undo_opts
 else
-    let b:undo_indent = undo_opts
+    let b:undo_indent = s:undo_opts
 endif
 
 setlocal indentexpr=ReStructuredTextIndent()
