@@ -87,7 +87,7 @@ syn region rstHyperlinkTarget contains=rstStandaloneHyperlink matchgroup=rstDeli
 syn region rstExDirective contained transparent matchgroup=rstDirective
       \ start=+[[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*::\ze\_s+
       \ skip=+^$+
-      \ end=+^\s\@!+ contains=rstLiteralBlock,rstDoubleColon,@rstInlineMarkup,@rstTables
+      \ end=+^\s\@!+ contains=rstExplicitMarkup,rstLiteralBlock,rstDoubleColon,@rstInlineMarkup,@rstTables
 
 
 syn match rstSubstitutionDefinition contained /|.*|\_s\+/
