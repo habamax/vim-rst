@@ -11,9 +11,10 @@ let s:output = shellescape(expand("%:p:r").".html")
 
 let &l:makeprg = printf("%s %s %s %s",
       \ get(g:, "rst2html_prg", "rst2html5.py"),
-      \ get(g:, "rst2html_opts",
-      \         "--input-encoding=utf8"
-      \       . " --stylesheet-path=minimal.css,responsive.css"),
+      \ get(b:, "rst2html_opts",
+      \         get(g:, "rst2html_opts",
+      \                 "--input-encoding=utf8"
+      \               . " --stylesheet-path=minimal.css,responsive.css")),
       \ s:input,
       \ s:output
       \ )
