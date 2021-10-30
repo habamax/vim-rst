@@ -39,6 +39,7 @@ nnoremap <silent><buffer> [[ :<c-u>call <sid>section(1, v:count1)<CR>
 func! s:section(back, cnt)
     let delims = '[=`:."' . "'" . '~^_*+#-]'
     let section = '\v^%(%([=-]{3,}\s+[=-]{3,})\n)@<!.+\n(' . delims . ')\1*$'
+    normal! m`
     for n in range(a:cnt)
         call search(section, a:back ? 'bW' : 'W')
     endfor
