@@ -18,19 +18,21 @@ compiler rst2html
 
 setlocal comments=
 
-let &l:formatlistpat = '^\s*\%('
-let &l:formatlistpat .= '\%([-+*]\)'
-let &l:formatlistpat .= '\|'
-let &l:formatlistpat .= '\%(\d\+[.)]\)'
-let &l:formatlistpat .= '\|'
-let &l:formatlistpat .= '\%((\d\+)\)'
-let &l:formatlistpat .= '\|'
-let &l:formatlistpat .= '\%(\%(\a\|#\)[.)]\)'
-let &l:formatlistpat .= '\|'
-let &l:formatlistpat .= '\%((\%(\a\|#\))\)'
-let &l:formatlistpat .= '\|'
-let &l:formatlistpat .= '\%(|\)'
-let &l:formatlistpat .= '\)\s\+'
+let g:rst_listitem = '^\s*\%('
+let g:rst_listitem .= '\%([-+*]\)'
+let g:rst_listitem .= '\|'
+let g:rst_listitem .= '\%(\d\+[.)]\)'
+let g:rst_listitem .= '\|'
+let g:rst_listitem .= '\%((\d\+)\)'
+let g:rst_listitem .= '\|'
+let g:rst_listitem .= '\%(\%(\a\|#\)[.)]\)'
+let g:rst_listitem .= '\|'
+let g:rst_listitem .= '\%((\%(\a\|#\))\)'
+let g:rst_listitem .= '\|'
+let g:rst_listitem .= '\%(|\)'
+let g:rst_listitem .= '\)'
+
+let &l:formatlistpat = g:rst_listitem . '\s\+'
 
 nnoremap <silent><buffer> ]] :<c-u>call <sid>section(0, v:count1)<CR>
 nnoremap <silent><buffer> [[ :<c-u>call <sid>section(1, v:count1)<CR>
