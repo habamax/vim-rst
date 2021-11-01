@@ -19,7 +19,9 @@ syn cluster rstInlineMarkup contains=rstEmphasis,rstStrongEmphasis,
 
 syn match rstLineBlock /^\s*|/ contained
 
-execute 'syn match rstListItem /' . g:rst_listitem . '\ze\s\+/ contains=rstLineBlock'
+if exists("g:rst_listitem")
+    execute 'syn match rstListItem /' . g:rst_listitem . '\ze\s\+/ contains=rstLineBlock'
+endif
 
 syn cluster rstTables contains=rstTable,rstSimpleTable
 syn region rstTable transparent start='^\n\s*+[-=+]\+' end='^$'
