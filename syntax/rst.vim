@@ -23,23 +23,6 @@ if exists("g:rst_listitem")
     execute 'syn match rstListItem /' . g:rst_listitem . '\ze\s\+/ contains=rstLineBlock'
 endif
 
-syn cluster rstTables contains=rstTable,rstSimpleTable
-syn region rstTable transparent start='^\n\s*+[-=+]\+' end='^$'
-      \ contains=rstTableLines,@rstInlineMarkup
-syn match rstTableLines contained display '|\|+\%(=\+\|-\+\)\='
-syn match rstSimpleTable
-      \ '^\s*\%(===\+\)\%(\s*===\+\)\+\s*$'
-syn match rstSimpleTable
-      \ '^\s*\%(---\+\)\%(\s*---\+\)\+\s*$'
-
-syn match rstSectionDelimiter contained "\v^([=`:.'"~^_*+#-])\1*\s*$"
-syn match rstSection "\v^%(%([=-]{3,}\s+[=-]{3,})\n)@<!\S.*\n([=`:.'"~^_*+#-])\1*$"
-      \ contains=rstSectionDelimiter,@Spell
-syn match rstSection "\v^%(([=`:.'"~^_*+#-])\1*\n).+\n([=`:.'"~^_*+#-])\2*$"
-      \ contains=rstSectionDelimiter,@Spell
-
-syn match rstTransition /^\n[=`:.'"~^_*+#-]\{4,}\s*\n$/
-
 syn match rstDoubleColon /::/ contained
 
 syn region rstLiteralBlock matchgroup=rstDelimiter
@@ -177,6 +160,23 @@ syn match rstHyperlinkReference
 
 syn match rstStandaloneHyperlink contains=@NoSpell
       \ "\<\%(\%(\%(https\=\|file\|ftp\|gopher\)://\|\%(mailto\|news\):\)[^[:space:]'\"<>]\+\|www[[:alnum:]_-]*\.[[:alnum:]_-]\+\.[^[:space:]'\"<>]\+\)[[:alnum:]/]"
+
+syn cluster rstTables contains=rstTable,rstSimpleTable
+syn region rstTable transparent start='^\n\s*+[-=+]\+' end='^$'
+      \ contains=rstTableLines,@rstInlineMarkup
+syn match rstTableLines contained display '|\|+\%(=\+\|-\+\)\='
+syn match rstSimpleTable
+      \ '^\s*\%(===\+\)\%(\s*===\+\)\+\s*$'
+syn match rstSimpleTable
+      \ '^\s*\%(---\+\)\%(\s*---\+\)\+\s*$'
+
+syn match rstSectionDelimiter contained "\v^([=`:.'"~^_*+#-])\1*\s*$"
+syn match rstSection "\v^%(%([=-]{3,}\s+[=-]{3,})\n)@<!\S.*\n([=`:.'"~^_*+#-])\1*$"
+      \ contains=rstSectionDelimiter,@Spell
+syn match rstSection "\v^%(([=`:.'"~^_*+#-])\1*\n).+\n([=`:.'"~^_*+#-])\2*$"
+      \ contains=rstSectionDelimiter,@Spell
+
+syn match rstTransition /^\n[=`:.'"~^_*+#-]\{4,}\s*\n$/
 
 syn region rstCodeBlock contained matchgroup=rstDirective
       \ start="\c\%(sourcecode\|code\%(-block\)\=\)::\s*.*\_s*\n\z(\s\+\)"
