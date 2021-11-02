@@ -75,6 +75,7 @@ syn region rstHyperlinkTarget matchgroup=rstDirective
 "       \ keepend
 
 syn region rstHyperlinkTarget matchgroup=rstDirective
+      \ start='^\z(\s*\)__\s*$'
       \ start='^\z(\s*\)__\_s'
       \ skip='^\ze\z1\s\+\S'
       \ matchgroup=NONE
