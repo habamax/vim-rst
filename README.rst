@@ -1,6 +1,6 @@
-#################################
-vim-rst: reStructuredText for Vim
-#################################
+*******************************************************************************
+                       vim-rst: reStructuredText for Vim
+*******************************************************************************
 
 
 Installation
@@ -21,8 +21,10 @@ Difference to bundled reStructuredText
 
 - Arguably "sane" indentation, that also take into account  ``formatlistpat``.
 
+- Handle nested directives.
+
 - Inline markup highlighting takes care of a lot of edge cases and follows
-  `inline markup recognition rules`_.
+  `inline markup recognition rules`__.
 
 - Section highlighting doesn't clash with simple tables and has separate
   section delimiter highlight.
@@ -37,22 +39,15 @@ Difference to bundled reStructuredText
 
 - and more...
 
-.. _`inline markup recognition rules`:
-  https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#inline-markup-recognition-rules
+__ https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#inline-markup-recognition-rules
 
 
 Screens
 =======
+.. image:: https://user-images.githubusercontent.com/234774/139922362-55787849-193b-475d-a91f-838ea29982cd.png
 
-.. image:: https://user-images.githubusercontent.com/234774/139091160-ef55351c-b763-45c1-9149-40576c7f9083.png
+.. image:: https://user-images.githubusercontent.com/234774/139922711-85c99280-b4f9-4e09-9240-62a4a17d7303.png
 
-.. image:: https://user-images.githubusercontent.com/234774/139091329-dfa54f76-b501-4087-8d3d-b1c12e084a6b.png
+.. image:: https://user-images.githubusercontent.com/234774/139923458-864e0f7a-d07a-4970-b7ca-3567861768f8.png
 
-.. image:: https://user-images.githubusercontent.com/234774/139091489-f2558b8b-9b09-4df1-a07b-41d6c9778bda.png
-
-.. image:: https://user-images.githubusercontent.com/234774/139091727-ef7b6c8c-ab3b-4dcf-84e8-f29391d89ce7.png
-
-.. image:: https://user-images.githubusercontent.com/234774/139092006-b34fda70-1303-4041-a810-85600957c919.png
-
-.. image:: https://user-images.githubusercontent.com/234774/139092196-32683670-ac8b-4d39-b88a-1191d4c99a1f.png
-
+.. image:: https://user-images.githubusercontent.com/234774/139924145-19517dfb-b93c-494f-8f86-85564cf19acf.png
