@@ -36,6 +36,10 @@ let &l:formatlistpat = g:rst_listitem . '\s\+'
 
 nnoremap <silent><buffer> ]] :<c-u>call <sid>section(0, v:count1)<CR>
 nnoremap <silent><buffer> [[ :<c-u>call <sid>section(1, v:count1)<CR>
+xmap     <buffer><expr>   ]] "\<esc>".v:count1.']]m>gv'
+xmap     <buffer><expr>   [[ "\<esc>".v:count1.'[[m>gv'
+onoremap <buffer>         ]] :<c-u>call <sid>section(0, v:count1)<CR>
+onoremap <buffer>         [[ :<c-u>call <sid>section(1, v:count1)<CR>
 
 "" Next/Previous section mappings
 func! s:section(back, cnt)
