@@ -44,7 +44,8 @@ __ https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#inline-mar
 
 Screens
 =======
-.. image:: https://user-images.githubusercontent.com/234774/139922362-55787849-193b-475d-a91f-838ea29982cd.png
+
+.. image:: https://user-images.githubusercontent.com/234774/140016441-d633367d-8e06-4fe1-ae58-4591bee9d829.png
 
 .. image:: https://user-images.githubusercontent.com/234774/139922711-85c99280-b4f9-4e09-9240-62a4a17d7303.png
 
