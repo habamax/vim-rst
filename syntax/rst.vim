@@ -200,7 +200,6 @@ for s:ch in [['(', ')'], ['{', '}'], ['<', '>'], ['\[', '\]'], ['"', '"'], ["'",
           \ ' concealends'
     execute 'syn region rstInlineLiteral matchgroup=rstDelimiter' .
           \ ' start=+'.s:ch[0].'\zs``\ze[^[:space:]'.s:ch[1].']+' .
-          \ ' skip=+\\\*+' .
           \ ' end=+\S\zs``\ze\($\|[[:space:].,:;!?"'."'".'/\\>)\]}]\)+' .
           \ ' concealends'
     execute 'syn region rstInlineInternalTarget matchgroup=rstDelimiter' .
