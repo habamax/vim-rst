@@ -47,7 +47,7 @@ Screens
 
 .. image:: https://user-images.githubusercontent.com/234774/139922362-55787849-193b-475d-a91f-838ea29982cd.png
 
-.. image:: https://user-images.githubusercontent.com/234774/140016441-d633367d-8e06-4fe1-ae58-4591bee9d829.png
+.. image:: https://user-images.githubusercontent.com/234774/140016933-3f0e5ebb-5220-4e29-945b-b10c1c334cf1.png
 
 .. image:: https://user-images.githubusercontent.com/234774/139923458-864e0f7a-d07a-4970-b7ca-3567861768f8.png
 
