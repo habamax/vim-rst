@@ -7,6 +7,10 @@ let s:undo_opts = "setl flp< com<"
 
 let s:undo_maps = "| execute 'nunmap <buffer> ]]'"
             \. "| execute 'nunmap <buffer> [['"
+            \. "| execute 'ounmap <buffer> ]]'"
+            \. "| execute 'ounmap <buffer> [['"
+            \. "| execute 'xunmap <buffer> ]]'"
+            \. "| execute 'xunmap <buffer> [['"
 
 if exists('b:undo_ftplugin')
     let b:undo_ftplugin .= "|" . s:undo_opts . s:undo_maps
