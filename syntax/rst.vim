@@ -269,8 +269,10 @@ syn match rstTransition /^\n[=`:.'"~^_*+#-]\{4,}\s*\n$/
 " Enable top level spell checking
 syntax spell toplevel
 
-" TODO: Use better syncing.
-syn sync minlines=50 linebreaks=2
+if !exists('g:rst_minlines')
+  let g:rst_minlines = 50
+endif
+execute 'syn sync minlines=' . g:rst_minlines . ' linebreaks=2'
 
 hi def link rstComment                      Comment
 hi def link rstSection                      Title
