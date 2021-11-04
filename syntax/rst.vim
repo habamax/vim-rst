@@ -33,8 +33,14 @@ syn region rstQuotedLiteralBlock matchgroup=rstDelimiter
       \ start="::\_s*\n\ze\z([!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]\)"
       \ end='^\z1\@!' contains=@NoSpell
 
-syn region rstDoctestBlock matchgroup=rstDelimiter
-      \ start='^\s*>>>\s' end='^\s*$'
+syn region rstDoctestBlock
+      \ start='^\z(\s*\)\ze>>>\s'
+      \ skip='^\ze\z1\s*\S'
+      \ end='^\ze\s*\S'
+      \ end='^\s*$'
+      \ contains=rstDoctestBlockPrompt
+      \ keepend
+syn match rstDoctestBlockPrompt contained '^\s*>>>\s\+'
 
 syn region rstFieldName start=+^\s*:\ze\S+ skip=+\\:+ end=+\S\zs:\ze\(\s\|$\)+ oneline
 
@@ -55,6 +61,7 @@ syn region rstExDirective
       \ skip='^\ze\z1\s\+\S'
       \ end='^\ze\s*\S'
       \ contains=@rstDirectives,@rstInlineMarkup
+      \ keepend
       \ transparent
 
 syn region rstHyperlinkTarget matchgroup=rstDirective
@@ -272,6 +279,7 @@ hi def link rstCitationReference            Identifier
 hi def link rstHyperLinkReference           Identifier
 hi def link rstStandaloneHyperlink          Underlined
 hi def link rstCodeBlock                    String
+hi def link rstDoctestBlockPrompt           rstDelimiter
 hi def rstEmphasis term=italic cterm=italic gui=italic
 hi def rstStrongEmphasis term=bold cterm=bold gui=bold
 
