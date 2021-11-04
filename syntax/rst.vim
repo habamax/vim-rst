@@ -23,9 +23,29 @@ if exists("g:rst_listitem")
     execute 'syn match rstListItem /' . g:rst_listitem . '\ze\s\+/ contains=rstLineBlock'
 endif
 
+syn region rstLiteralBlock matchgroup=rstDelimiter
+      \ start='\(^\z(\s*\).*\)\@<=::\n\s*\n'
+      \ skip='^\s*$'
+      \ end='^\(\z1\s\+\)\@!'
+      \ contains=@NoSpell
 
 syn region rstLiteralBlock matchgroup=rstDelimiter
-      \ start='\(^\z(\s*\).*\)\@<=::\n\s*\n' skip='^\s*$' end='^\(\z1\s\+\)\@!'
+      \ start='\(^\z(\s*\)\z\([-*+]\)\z\(\s\)\z(\s*\).*\)\@<=::\n\s*\n'
+      \ skip='^\s*$'
+      \ end='^\(\z1\z3\z3\z4\s\+\)\@!'
+      \ contains=@NoSpell
+
+syn region rstLiteralBlock matchgroup=rstDelimiter
+      \ start='\(^\z(\s*\)\z\([#[:alnum:]][.)]\)\z\(\s\)\z(\s*\).*\)\@<=::\n\s*\n'
+      \ skip='^\s*$'
+      \ end='^\(\z1\z3\z3\z3\z4\s\+\)\@!'
+      \ contains=@NoSpell
+
+syn region rstLiteralBlock matchgroup=rstDelimiter
+      \ start='\(^\z(\s*\)\z\(([#[:alnum:]])\)\z\(\s\)\z(\s*\).*\)\@<=::\n\s*\n'
+      \ start='\(^\z(\s*\)\z\(\d\d[.)]\)\z\(\s\)\z(\s*\).*\)\@<=::\n\s*\n'
+      \ skip='^\s*$'
+      \ end='^\(\z1\z3\z3\z3\z3\z4\s\+\)\@!'
       \ contains=@NoSpell
 
 syn region rstQuotedLiteralBlock matchgroup=rstDelimiter
