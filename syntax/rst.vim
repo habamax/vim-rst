@@ -49,7 +49,6 @@ syn region rstComment
       \ skip='^\ze\z1\s\+\S'
       \ end='^\ze\s*\S'
 
-      " \ start='^\z(\s*\)\.\.\s\+\%([[:alnum:]|]\%([-_.:+|]\?[[:alnum:]|]\+\)*\)\?::\ze\%([^:]\|$\)'
 syn region rstExDirective
       \ matchgroup=rstDirective
       \ start='^\z(\s*\)\.\.\s\+.\{-}::\ze\%([^:]\|$\)'
