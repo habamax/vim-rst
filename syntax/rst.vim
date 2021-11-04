@@ -146,7 +146,6 @@ for s:filetype in keys(g:rst_syntax_code_list)
           \. join(g:rst_syntax_code_list[s:filetype], '\|')
           \. '\)'
 
-          " \. ' start="\c\%(sourcecode\|code\%(-block\)\=\)::\s\+'.s:alias_pattern.'\_s*\n\z(\s\+\)"'
     exe 'syn include @rstSyntax'.s:filetype.' syntax/'.s:filetype.'.vim'
     exe 'syn region rstCodeBlock'.s:filetype
           \. ' matchgroup=rstDirective'
@@ -236,7 +235,6 @@ for s:ch in [['(', ')'], ['{', '}'], ['<', '>'], ['\[', '\]'], ['"', '"'], ["'",
           \ ' concealends'
 endfor
 
-" TODO: Can’t remember why these two can’t be defined like the ones above.
 syn match rstFootnoteReference contains=@NoSpell
       \ +\%(\s\|^\)\[\%(\d\+\|#\%([[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*\)\=\|\*\)\]_+
 
