@@ -24,7 +24,6 @@ if exists("g:rst_listitem")
 endif
 
 
-" TODO: check indent end?
 syn region rstLiteralBlock matchgroup=rstDelimiter
       \ start='\(^\z(\s*\).*\)\@<=::\n\s*\n' skip='^\s*$' end='^\(\z1\s\+\)\@!'
       \ contains=@NoSpell
