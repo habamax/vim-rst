@@ -66,14 +66,6 @@ syn region rstHyperlinkTarget matchgroup=rstDirective
       \ contains=@rstDirectives,rstStandaloneHyperlink
       \ keepend
 
-" syn region rstHyperlinkTarget matchgroup=rstDirective
-"       \ start='^\z(\s*\)\.\.\_s_`[^`\\]*\%(\\.[^`\\]*\)*`:\(\s\|$\)'
-"       \ skip='^\ze\z1\s\+\S'
-"       \ matchgroup=NONE
-"       \ end='^\ze\s*\S'
-"       \ contains=@rstDirectives,rstStandaloneHyperlink
-"       \ keepend
-
 syn region rstHyperlinkTarget matchgroup=rstDirective
       \ start='^\z(\s*\)__\s*$'
       \ start='^\z(\s*\)__\_s'
