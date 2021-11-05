@@ -10,7 +10,7 @@
 "     another directive
 "
 func! rst#directive_tobj(inner) abort
-    let lnum_cur = line('.')
+    let lnum_cur = nextnonblank('.')
     let stop_line = search('^\S', 'ncbW')
     let lnum_start = search('^\s*\.\.\%(\s\|$\)', "cbW", stop_line)
     if !lnum_start | return | endif
