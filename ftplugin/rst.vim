@@ -38,19 +38,17 @@ let g:rst_listitem .= '\)'
 
 let &l:formatlistpat = g:rst_listitem . '\s\+'
 
-nnoremap <silent><buffer> ]] :<c-u>call <sid>section(0, v:count1)<CR>
-nnoremap <silent><buffer> [[ :<c-u>call <sid>section(1, v:count1)<CR>
+
+if get(g:, "rst_mappings", 1)
+    onoremap <silent><buffer>id :<C-u>call rst#directive_tobj(1)<CR>
+    onoremap <silent><buffer>ad :<C-u>call rst#directive_tobj(0)<CR>
+    xnoremap <silent><buffer>id :<C-u>call rst#directive_tobj(1)<CR>
+    xnoremap <silent><buffer>ad :<C-u>call rst#directive_tobj(0)<CR>
+endif
+
+nnoremap <silent><buffer> ]] :<c-u>call rst#section(0, v:count1)<CR>
+nnoremap <silent><buffer> [[ :<c-u>call rst#section(1, v:count1)<CR>
 xmap     <buffer><expr>   ]] "\<esc>".v:count1.']]m>gv'
 xmap     <buffer><expr>   [[ "\<esc>".v:count1.'[[m>gv'
-onoremap <buffer>         ]] :<c-u>call <sid>section(0, v:count1)<CR>
-onoremap <buffer>         [[ :<c-u>call <sid>section(1, v:count1)<CR>
-
-"" Next/Previous section mappings
-func! s:section(back, cnt)
-    let delims = '[=`:."' . "'" . '~^_*+#-]'
-    let section = '\v^%(%([=-]{3,}\s+[=-]{3,})\n)@<!.+\n(' . delims . ')\1*$'
-    normal! m`
-    for n in range(a:cnt)
-        call search(section, a:back ? 'bW' : 'W')
-    endfor
-endfunc
+onoremap <buffer>         ]] :<c-u>call rst#section(0, v:count1)<CR>
+onoremap <buffer>         [[ :<c-u>call rst#section(1, v:count1)<CR>
