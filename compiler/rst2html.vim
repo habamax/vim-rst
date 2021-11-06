@@ -21,4 +21,3 @@ let &l:makeprg = printf("%s %s %s %s",
 
 let &cpo = s:keepcpo
 unlet s:keepcpo
-

@@ -1,0 +1,93 @@
+*rst.txt*          reStructuredText
+
+Author:  Maxim Kim <https://habamax.github.io>
+URL:     https://github.com/habamax/vim-rst
+License: MIT
+
+
+INTRODUCTION                                                         *vim-rst*
+
+
+reStructuredText syntax and ftplugin.
+
+
+SETTINGS                                                        *rst-settings*
+
+
+*g:rst_mappings*
+
+Whether to use or not default mappings.
+
+    ie   inner environment
+    ae   an environment
+
+Default: 1
+
+An environment is either a directive or a section, thus one could select a
+section with vae: >
+
+    =======
+    Section
+    =======
+
+    Section body
+
+Or a directive: >
+
+    =======
+    Section
+    =======
+
+    .. note::
+
+        A note<cursor>
+
+Second ae would select a section.
+
+NOTE: there are ]] and [[ mapped to jump to next or previous section, it is
+always turned on for the rst filetype.
+
+
+*g:rst_minlines*
+
+Syntax sync min lines. See |:syn-sync| for details.
+
+Default: 50
+
+
+*rst_syntax_code_list*
+
+Dictionary of syntax to be included into code blocks.
+
+Default: {}
+
+  Example: >
+
+    let g:rst_syntax_code_list = {
+          \ 'vim': ['vim'],
+          \ 'sql': ['sql'],
+          \ 'cpp': ['cpp', 'c++'],
+          \ 'python': ['python'],
+          \ 'json': ['json'],
+          \ 'javascript': ['js'],
+          \ 'sh': ['sh'],
+          \ }
+
+
+*g:rst2html_prg*
+
+Compiler to convert rst text into html. Use |:make| to convert current file to
+the html with the same basename: ~/test.rst -> :make -> ~/test.html.
+
+Default: 'rst2html5.py'
+
+
+*g:rst2html_opts* *b:rst2html_opts*
+
+Compiler options to convert rst text into html.
+
+Default: '--input-encoding=utf8 --stylesheet-path=minimal.css,responsive.css'
+
+
+
+ vim:tw=78:et:ft=help:norl:
