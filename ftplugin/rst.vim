@@ -47,10 +47,10 @@ let &l:formatlistpat = g:rst_listitem . '\s\+'
 
 
 if get(g:, "rst_mappings", 1)
-    onoremap <silent><buffer>ie :<C-u>call rst#directive_tobj(1)<CR>
-    onoremap <silent><buffer>ae :<C-u>call rst#directive_tobj(0)<CR>
-    xnoremap <silent><buffer>ie :<C-u>call rst#directive_tobj(1)<CR>
-    xnoremap <silent><buffer>ae :<C-u>call rst#directive_tobj(0)<CR>
+    onoremap <silent><buffer>ie :<C-u>call rst#environment_tobj(1)<CR>
+    onoremap <silent><buffer>ae :<C-u>call rst#environment_tobj(0)<CR>
+    xnoremap <silent><buffer>ie :<C-u>call rst#environment_tobj(1)<CR>
+    xnoremap <silent><buffer>ae :<C-u>call rst#environment_tobj(0)<CR>
 endif
 
 nnoremap <silent><buffer> ]] :<c-u>call rst#section(0, v:count1)<CR>
