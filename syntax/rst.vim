@@ -125,19 +125,7 @@ syn region rstCodeBlock
       \ end='^\ze\s*\S'
       \ keepend
 
-if !exists('g:rst_syntax_code_list') || type(g:rst_syntax_code_list) != type({})
-    let g:rst_syntax_code_list = {
-          \ 'vim': ['vim'],
-          \ 'sql': ['sql'],
-          \ 'cpp': ['cpp', 'c++'],
-          \ 'python': ['python'],
-          \ 'json': ['json'],
-          \ 'javascript': ['js'],
-          \ 'sh': ['sh'],
-          \ }
-endif
-
-for s:filetype in keys(g:rst_syntax_code_list)
+for s:filetype in keys(get(g:, "rst_syntax_code_list", {}))
     unlet! b:current_syntax
     " guard against setting 'isk' option which might cause problems (issue #108)
     let prior_isk = &l:iskeyword
