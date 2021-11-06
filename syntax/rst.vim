@@ -170,68 +170,68 @@ endfor
 syn region rstStrongEmphasis matchgroup=rstDelimiter
       \ start=+\%(^\|[[:space:]-:/]\)\zs\*\*\ze[^[:space:]]+
       \ skip=+\\\*+
-      \ end=+\S\zs\*\*\ze\($\|[[:space:].,:;!?"'/\\>)\]}]\)+
+      \ end=+\S\zs\*\*\ze\($\|[[:space:]-.,:;!?"'/\\>)\]}]\)+
       \ concealends
 
 syn region rstEmphasis matchgroup=rstDelimiter
       \ start=+\%(^\|[[:space:]-:/]\)\zs\*\ze[^*[:space:]]+
       \ skip=+\\\*+
-      \ end=+\S\zs\*\ze\($\|[[:space:].,:;!?"'/\\>)\]}]\)+
+      \ end=+\S\zs\*\ze\($\|[[:space:]-.,:;!?"'/\\>)\]}]\)+
       \ concealends
 
 syn region rstInlineLiteral matchgroup=rstDelimiter
       \ start=+\(^\|[[:space:]-:/]\)\zs``\ze\S+
-      \ end=+\S\zs``\ze\($\|[[:space:].,:;!?"'/\\>)\]}]\)+
+      \ end=+\S\zs``\ze\($\|[[:space:]-.,:;!?"'/\\>)\]}]\)+
       \ concealends
 
 syn region rstInlineInternalTarget matchgroup=rstDelimiter
       \ start=+\(^\|[[:space:]-:/]\)\zs_`\ze[^`[:space:]]+
       \ skip=+\\`+
-      \ end=+\S\zs`\ze\($\|[[:space:].,:;!?"'/\\>)\]}]\)+
+      \ end=+\S\zs`\ze\($\|[[:space:]-.,:;!?"'/\\>)\]}]\)+
       \ concealends
 
 syn region rstInterpretedText matchgroup=rstDelimiter contains=rstStandaloneHyperlink
       \ start=+\(^\|[[:space:]-:/]\)\zs\%(:[[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*:\)\?`\ze[^`[:space:]]+
       \ skip=+\\`+
       \ end=+\S\zs`_\{0,2}\ze\($\|[[:space:].,:;!?"'/\\>)\]}]\)+
-      \ end=+\S\zs`\%(:[[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*:\)\?\ze\($\|[[:space:].,:;!?"'/\\>)\]}]\)+
+      \ end=+\S\zs`\%(:[[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*:\)\?\ze\($\|[[:space:]-.,:;!?"'/\\>)\]}]\)+
       \ concealends
 
 syn region rstSubstitutionReference matchgroup=rstDelimiter
       \ start=+\%(^\|[[:space:]-:/]\)\zs|\ze[^|[:space:]]+
       \ skip=+\\|+
-      \ end=+\S\zs|_\{0,2}\ze\($\|[[:space:].,:;!?"'/\\>)\]}]\)+
+      \ end=+\S\zs|_\{0,2}\ze\($\|[[:space:]-.,:;!?"'/\\>)\]}]\)+
       \ concealends
 
 for s:ch in [['(', ')'], ['{', '}'], ['<', '>'], ['\[', '\]'], ['"', '"'], ["'", "'"]]
     execute 'syn region rstStrongEmphasis matchgroup=rstDelimiter' .
           \ ' start=+'.s:ch[0].'\zs\*\*\ze[^[:space:]'.s:ch[1].']+' .
           \ ' skip=+\\\*+' .
-          \ ' end=+\S\zs\*\*\ze\($\|[[:space:].,:;!?"'."'".'/\\>)\]}]\)+' .
+          \ ' end=+\S\zs\*\*\ze\($\|[[:space:]-.,:;!?"'."'".'/\\>)\]}]\)+' .
           \ ' concealends'
     execute 'syn region rstEmphasis matchgroup=rstDelimiter' .
           \ ' start=+'.s:ch[0].'\zs\*\ze[^*[:space:]'.s:ch[1].']+' .
           \ ' skip=+\\\*+' .
-          \ ' end=+\S\zs\*\ze\($\|[[:space:].,:;!?"'."'".'/\\>)\]}]\)+' .
+          \ ' end=+\S\zs\*\ze\($\|[[:space:]-.,:;!?"'."'".'/\\>)\]}]\)+' .
           \ ' concealends'
     execute 'syn region rstInlineLiteral matchgroup=rstDelimiter' .
           \ ' start=+'.s:ch[0].'\zs``\ze[^[:space:]'.s:ch[1].']+' .
-          \ ' end=+\S\zs``\ze\($\|[[:space:].,:;!?"'."'".'/\\>)\]}]\)+' .
+          \ ' end=+\S\zs``\ze\($\|[[:space:]-.,:;!?"'."'".'/\\>)\]}]\)+' .
           \ ' concealends'
     execute 'syn region rstInlineInternalTarget matchgroup=rstDelimiter' .
           \ ' start=+'.s:ch[0].'\zs_`\ze[^`[:space:]'.s:ch[1].']+' .
           \ ' skip=+\\`+' .
-          \ ' end=+\S\zs`\ze\($\|[[:space:].,:;!?"'."'".'/\\>)\]}]\)+' .
+          \ ' end=+\S\zs`\ze\($\|[[:space:]-.,:;!?"'."'".'/\\>)\]}]\)+' .
           \ ' concealends'
     execute 'syn region rstInterpretedText matchgroup=rstDelimiter contains=rstStandaloneHyperlink' .
           \ ' start=+'.s:ch[0].'\zs`\ze[^`[:space:]'.s:ch[1].']+' .
           \ ' skip=+\\`+' .
-          \ ' end=+\S\zs`_\{0,2}\ze\($\|[[:space:].,:;!?"'."'".'/\\>)\]}]\)+' .
+          \ ' end=+\S\zs`_\{0,2}\ze\($\|[[:space:]-.,:;!?"'."'".'/\\>)\]}]\)+' .
           \ ' concealends'
     execute 'syn region rstSubstitutionReference matchgroup=rstDelimiter' .
           \ ' start=+'.s:ch[0].'\zs|\ze[^|[:space:]'.s:ch[1].']+' .
           \ ' skip=+\\|+' .
-          \ ' end=+\S\zs|_\{0,2}\ze\($\|[[:space:].,:;!?"'."'".'/\\>)\]}]\)+' .
+          \ ' end=+\S\zs|_\{0,2}\ze\($\|[[:space:]-.,:;!?"'."'".'/\\>)\]}]\)+' .
           \ ' concealends'
 endfor
 
