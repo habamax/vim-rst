@@ -55,7 +55,7 @@ Syntax sync min lines. See |:syn-sync| for details.
 Default: 50
 
 
-*rst_syntax_code_list*
+*g:rst_syntax_code_list*
 
 Dictionary of syntax to be included into code blocks.
 
