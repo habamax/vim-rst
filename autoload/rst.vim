@@ -57,33 +57,28 @@ endfunc
 "
 " Returns [lnum_start, lnum_end]
 func! s:directive_tobj(inner) abort
-    try
-        " let save_cursor = getcurpos()
-        let lnum_cur = nextnonblank('.')
-        let stop_line = search('^\S', 'ncbW')
-        let lnum_start = search('^\s*\.\.\%(\s\|$\)', "cbW", stop_line)
-        if !lnum_start | return [0, 0] | endif
-        while lnum_start && indent(lnum_start) >= s:min_indent(lnum_start+1, lnum_cur)
-            let lnum_start = search('^\s*\.\.\%(\s\|$\)', "bW", stop_line)
-        endwh
-        if !lnum_start | let lnum_start = line('.') | endif
-        let lnum_end = search('\(^\s\{,'.indent(lnum_start).'}\S\)\|\%$', "nW")
-        if lnum_end
-            if (lnum_end == line('$') && getline(lnum_end) =~ '^\s*$') || lnum_end != line('$')
-                let lnum_end = prevnonblank(lnum_end - 1)
-            endif
-            if a:inner
-                let lnum_start = nextnonblank(lnum_start + 1)
-                if lnum_start > lnum_end
-                    return [0, 0]
-                endif
-            endif
-            return [lnum_start, lnum_end]
+    let lnum_cur = nextnonblank('.')
+    let stop_line = search('^\S', 'ncbW')
+    let lnum_start = search('^\s*\.\.\%(\s\|$\)', "cbW", stop_line)
+    if !lnum_start | return [0, 0] | endif
+    while lnum_start && indent(lnum_start) >= s:min_indent(lnum_start + 1, lnum_cur)
+        let lnum_start = search('^\s*\.\.\%(\s\|$\)', "bW", stop_line)
+    endwh
+    if !lnum_start | let lnum_start = line('.') | endif
+    let lnum_end = search('\(^\s\{,' . indent(lnum_start) . '}\S\)\|\%$', "nW")
+    if lnum_end
+        if (lnum_end == line('$') && getline(lnum_end) =~ '^\s*$') || lnum_end != line('$')
+            let lnum_end = prevnonblank(lnum_end - 1)
         endif
-        return [0, 0]
-    finally
-        " call setpos('.', save_cursor)
-    endtry
+        if a:inner
+            let lnum_start = nextnonblank(lnum_start + 1)
+            if lnum_start > lnum_end
+                return [0, 0]
+            endif
+        endif
+        return [lnum_start, lnum_end]
+    endif
+    return [0, 0]
 endfunc
 
 
@@ -104,39 +99,34 @@ endfunc
 "
 " Returns [lnum_start, lnum_end]
 func! s:section_tobj(inner) abort
-    try
-        " let save_cursor = getcurpos()
-        let delims = '[=`:."' . "'" . '~^_*+#-]'
-        let section = '^\%(\%([=-]\{3,}\s\+[=-]\{3,}\)\n\)\@<!.\+\n\(' . delims . '\)\1*$'
-        if getline('.') =~ '^\('.delims.'\)\1*$'
-          +1
+    let delims = '[=`:."' . "'" . '~^_*+#-]'
+    let section = '^\%(\%([=-]\{3,}\s\+[=-]\{3,}\)\n\)\@<!.\+\n\(' . delims . '\)\1*$'
+    if getline('.') =~ '^\(' . delims . '\)\1*$'
+        +1
+    endif
+    let lnum_start = search(section, "ncbW")
+    if !lnum_start | return [0, 0] | endif
+    let lnum_end = search('\%(' . section . '\)\|\%$', "nW")
+    if lnum_end
+        if (lnum_end == line('$') && getline(lnum_end) =~ '^\s*$') || lnum_end != line('$')
+            let lnum_end = prevnonblank(lnum_end - 1)
         endif
-        let lnum_start = search(section, "ncbW")
-        if !lnum_start | return [0, 0] | endif
-        let lnum_end = search('\%('.section.'\)\|\%$', "nW")
-        if lnum_end
-            if (lnum_end == line('$') && getline(lnum_end) =~ '^\s*$') || lnum_end != line('$')
-                let lnum_end = prevnonblank(lnum_end - 1)
-            endif
-            if getline(lnum_end) =~ '^\(' . delims . '\)\1*$'
-              let lnum_end -= 1
-            endif
-            if a:inner
-                let lnum_start = nextnonblank(lnum_start + 2)
-                if lnum_start > lnum_end
-                    return [0, 0]
-                endif
-            else
-                if getline(lnum_start - 1) =~ '^\('.delims.'\)\1*$'
-                  let lnum_start -= 1
-                endif
-            endif
-            return [lnum_start, lnum_end]
+        if lnum_end - lnum_start > 1 && getline(lnum_end) =~ '^\(' . delims . '\)\1*$'
+            let lnum_end -= 1
         endif
-        return [0, 0]
-    finally
-        " call setpos('.', save_cursor)
-    endtry
+        if a:inner
+            let lnum_start = nextnonblank(lnum_start + 2)
+            if lnum_start > lnum_end
+                return [0, 0]
+            endif
+        else
+            if getline(lnum_start - 1) =~ '^\(' . delims . '\)\1*$'
+                let lnum_start -= 1
+            endif
+        endif
+        return [lnum_start, lnum_end]
+    endif
+    return [0, 0]
 endfunc
 
 
@@ -144,5 +134,3 @@ func! s:min_indent(start, end) abort
     let lnums = filter(range(a:start, a:end), {_,lnum -> !empty(getline(lnum))})
     return min(map(lnums, {_,lnum -> indent(lnum)}))
 endfunc
-
-
