@@ -101,12 +101,16 @@ endfunc
 " Returns [lnum_start, lnum_end]
 func! s:section_tobj(inner) abort
     let delims = '[=`:."' . "'" . '~^_*+#-]'
-    let section = '^\%(\%([=-]\{3,}\s\+[=-]\{3,}\)\n\)\@<!.\+\n\(' . delims . '\)\1*$'
+    let section_double = '\%(^\(' . delims . '\)\1*\n.\+\n\1\+$\)'
+    let section_single = '\%(^\%(\%([=-]\{3,}\s\+[=-]\{3,}\)\n\)\@<!\%(\.\.\)\@!\S\+.*\n\(' . delims . '\)\2*$\)'
+    let section = section_double . '\|' . section_single
     if getline('.') =~ '^\(' . delims . '\)\1*$'
         +1
     endif
     let lnum_start = search(section, "ncbW")
     if !lnum_start | return [0, 0] | endif
+    " check if it is actually a section
+    " if getline(lnum_start) =~ section
     let lnum_end = search('\%(' . section . '\)\|\%$', "nW")
     if lnum_end
         if (lnum_end == line('$') && getline(lnum_end) =~ '^\s*$') || lnum_end != line('$')
