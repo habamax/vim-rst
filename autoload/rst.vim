@@ -110,7 +110,7 @@ func! s:section_tobj(inner) abort
     let lnum_end = search('\%(' . section . '\)\|\%$', "nW")
     if lnum_end
         if (lnum_end == line('$') && getline(lnum_end) =~ '^\s*$') || lnum_end != line('$')
-            let lnum_end = prevnonblank(lnum_end - 1)
+            let lnum_end = lnum_end - 1
         endif
         if lnum_end - lnum_start > 1 && getline(lnum_end) =~ '^\(' . delims . '\)\1*$'
             let lnum_end -= 1
