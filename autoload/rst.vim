@@ -8,7 +8,8 @@ func! rst#section(back, cnt)
     endfor
 endfunc
 
-
+" Environment text object (either directive or a section)
+" NOTE: section does not include subsections
 func! rst#environment_tobj(inner) range abort
     let lnum_cur = line('.')
     let [lnum_dstart, lnum_dend] = s:directive_tobj(a:inner)
@@ -44,7 +45,7 @@ func! rst#environment_tobj(inner) range abort
 endfunc
 
 
-" Directive text object:
+" Directive text object helper:
 "
 " .. directive::
 "
@@ -82,7 +83,7 @@ func! s:directive_tobj(inner) abort
 endfunc
 
 
-" Section text object:
+" Section text object helper:
 "
 " ==============
 " Section
