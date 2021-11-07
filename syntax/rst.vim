@@ -77,6 +77,7 @@ syn region rstComment
 syn region rstExDirective
       \ matchgroup=rstDirective
       \ start='^\z(\s*\)\.\.\s\+.\{-}::\ze\%([^:]\|$\)'
+      \ start='^\(\z(\s*\)\)\.\.\s\+|.\{-}|\s*\n\1\s\+.\{-}::\ze\%([^:]\|$\)'
       \ skip='^\ze\z1\s\+\S'
       \ end='^\ze\s*\S'
       \ contains=@rstDirectives,@rstInlineMarkup
