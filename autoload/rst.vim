@@ -100,40 +100,55 @@ endfunc
 "
 " Returns [lnum_start, lnum_end]
 func! s:section_tobj(inner) abort
-    let delims = '[=`:."' . "'" . '~^_*+#-]'
-    let section_double = '\%(^\(' . delims . '\)\1*\n.\+\n\1\+$\)'
-    let section_single = '\%(^\%(\%([=-]\{3,}\s\+[=-]\{3,}\)\n\)\@<!\%(\.\.\)\@!\S\+.*\n\(' . delims . '\)\2*$\)'
-    let section = section_double . '\|' . section_single
-    if getline('.') =~ '^\(' . delims . '\)\1*$'
-        +1
-    endif
-    let lnum_start = search(section, "ncbW")
-    if !lnum_start | return [0, 0] | endif
-    let lnum_end = search('\%(' . section . '\)\|\%$', "nW")
-    if lnum_end
-        if (lnum_end == line('$') && getline(lnum_end) =~ '^\s*$') || lnum_end != line('$')
-            if a:inner
-                let lnum_end = prevnonblank(lnum_end - 1)
+    try
+        let save_cursor = getcurpos()
+        let delims = '[=`:."' . "'" . '~^_*+#-]'
+        let section_double = '\%(^\(' . delims . '\)\1*\n.\+\n\1\+$\)'
+        let section_single = '\%(^\%(\%([=-]\{3,}\s\+[=-]\{3,}\)\n\)\@<!\%(\.\.\)\@!\S\+.*\n\(' . delims . '\)\2*$\)'
+        let section = section_double . '\|' . section_single
+        if getline('.') =~ '^\(' . delims . '\)\1*$'
+            if getline(line('.') + 1) !~ '^\(' . delims . '\)\1*$'
+                +1
             else
-                let lnum_end -= 1
+                -1
             endif
         endif
-        if lnum_end - lnum_start > 1 && getline(lnum_end) =~ '^\(' . delims . '\)\1*$'
-            let lnum_end -= 1
+        let lnum_start = search(section, "cbW")
+        if !lnum_start | return [0, 0] | endif
+        if getline(lnum_start) !~ '^\(' . delims . '\)\1*$'
+              \ && getline(lnum_start - 1) =~ '^\(' . delims . '\)\1*$'
+            let lnum_start -= 1
         endif
-        if a:inner
-            let lnum_start = nextnonblank(lnum_start + 2)
-            if lnum_start > lnum_end
-                return [0, 0]
-            endif
+        if getline(lnum_start) =~ '^\(' . delims . '\)\1*$'
+            +3
         else
-            if getline(lnum_start - 1) =~ '^\(' . delims . '\)\1*$'
-                let lnum_start -= 1
-            endif
+            +2
         endif
-        return [lnum_start, lnum_end]
-    endif
-    return [0, 0]
+        let lnum_end = search('\%(' . section . '\)\|\%$', "cW")
+        if lnum_end
+            if (lnum_end == line('$') && getline(lnum_end) =~ '^\s*$') || lnum_end != line('$')
+                if a:inner
+                    let lnum_end = prevnonblank(lnum_end - 1)
+                else
+                    let lnum_end -= 1
+                endif
+            endif
+            if a:inner
+                if getline(lnum_start) =~ '^\(' . delims . '\)\1*$'
+                    let lnum_start = nextnonblank(lnum_start + 3)
+                else
+                    let lnum_start = nextnonblank(lnum_start + 2)
+                endif
+                if lnum_start > lnum_end
+                    return [0, 0]
+                endif
+            endif
+            return [lnum_start, lnum_end]
+        endif
+        return [0, 0]
+    finally
+        call setpos('.', save_cursor)
+    endtry
 endfunc
 
 
