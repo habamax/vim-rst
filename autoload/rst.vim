@@ -109,8 +109,6 @@ func! s:section_tobj(inner) abort
     endif
     let lnum_start = search(section, "ncbW")
     if !lnum_start | return [0, 0] | endif
-    " check if it is actually a section
-    " if getline(lnum_start) =~ section
     let lnum_end = search('\%(' . section . '\)\|\%$', "nW")
     if lnum_end
         if (lnum_end == line('$') && getline(lnum_end) =~ '^\s*$') || lnum_end != line('$')
