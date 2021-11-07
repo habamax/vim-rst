@@ -109,9 +109,6 @@ syn match rstSection "\v^%(%([=-]{3,}\s+[=-]{3,})\n)@<!\S.*\n([=`:.'"~^_*+#-])\1
 syn match rstSection "\v^%(([=`:.'"~^_*+#-])\1*\n).+\n([=`:.'"~^_*+#-])\2*$"
       \ contains=rstSectionDelimiter,@Spell
 
-syn match rstTransition /^\n[=`:.'"~^_*+#-]\{4,}\s*\n$/
-
-
 syn match rstFootnoteReference contains=@NoSpell
       \ +\%(\s\|^\)\[\%(\d\+\|#\%([[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*\)\=\|\*\)\]_+
 
@@ -255,6 +252,9 @@ for s:filetype in keys(get(g:, "rst_syntax_code_list", {}))
     endif
     unlet! prior_isk
 endfor
+
+
+syn match rstTransition /\n\@<=[=`:.'"~^_*+#-]\{4,}\s*\n$/
 
 
 " Enable top level spell checking
