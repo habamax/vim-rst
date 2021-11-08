@@ -58,7 +58,7 @@ endfunc
 "
 " Returns [lnum_start, lnum_end]
 func! s:directive_tobj(inner) abort
-    let lnum_cur = nextnonblank('.')
+    let lnum_cur = indent(nextnonblank('.')) > indent(prevnonblank('.')) ? nextnonblank('.') : prevnonblank('.')
     let stop_line = search('^\S', 'ncbW')
     let lnum_start = search('^\s*\.\.\%(\s\|$\)', "cbW", stop_line)
     if !lnum_start | return [0, 0] | endif
@@ -66,6 +66,7 @@ func! s:directive_tobj(inner) abort
         let lnum_start = search('^\s*\.\.\%(\s\|$\)', "bW", stop_line)
     endwh
     if !lnum_start | let lnum_start = line('.') | endif
+    if indent(lnum_start) >= s:min_indent(lnum_start + 1, lnum_cur) | return [0, 0] | endif
     let lnum_end = search('\(^\s\{,' . indent(lnum_start) . '}\S\)\|\%$', "nW")
     if lnum_end
         if (lnum_end == line('$') && getline(lnum_end) =~ '^\s*$') || lnum_end != line('$')
