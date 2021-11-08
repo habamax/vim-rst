@@ -234,17 +234,17 @@ func! rst#gx() abort
             if search('`\ze_', 'eW')
                 let e_pos = getcurpos()
                 if s_pos[1] == e_pos[1]
-                    let url_name = getline('.')[s_pos[2]-1 : (e_pos[2] - s_pos[2])]
+                    let url_name = getline('.')[s_pos[2] : e_pos[2] - 2]
                 elseif e_pos[1] - s_pos[1] == 1
-                    let url_name = getline(line('.') - 1)[s_pos[2]-1 : ]
-                    let url_name .= ' ' . getline('.')[: e_pos[2]-1]
+                    let url_name = getline(line('.') - 1)[s_pos[2] : ]
+                    let url_name .= ' ' . getline('.')[: e_pos[2] - 2]
                 endif
                 let url_name = substitute(url_name, '\s\+', '\\s\\+', 'g')
             endif
         endif
         if !empty(url_name)
             normal! go
-            if search('^\s*\.\.\s\+_'.url_name.':\s\+\S\+', 'eW')
+            if search('^\s*\.\.\s\+_\(`\)\?' . url_name . '\1:\s\+\S\+', 'eW')
                 if expand("<cfile>") =~ rx_bare
                     let URL = expand("<cfile>")
                 endif
