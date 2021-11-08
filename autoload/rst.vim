@@ -176,7 +176,7 @@ func! rst#gx() abort
     " `Google search`__
     " Yandex__
     " ...
-    " __ https://google.com
+    " .. __: https://google.com
     " __ https://yandex.ru
     " Scan document from top to cursor position, find matching __
     try
@@ -211,7 +211,49 @@ func! rst#gx() abort
         call winrestview(save_view)
     endtry
 
-    " naked URL http://google.com
+    " .. _`Google search`: https://google.com
+    "
+    " `Google search`_
+    "
+    " Yandex_
+    "
+    " `Google
+    " search`_
+    " ...
+    " `Google        search`_
+    " .. _Yandex: https://yandex.ru
+    try
+        let save_view = winsaveview()
+        let url_start = '\%(^\|[[:space:][\]()"' . "'" . '-:/]\)\zs`\ze[^`[:space:]]'
+        let url_end = '\S`_\ze\%($\|[[:space:].,:;!?"' . "." . '/\\>)\]}]\)'
+        let url_name = ''
+        if expand("<cfile>") =~ '^.*[^_]_$' 
+            let url_name = expand("<cfile>")[:-2]
+        elseif searchpair(url_start, '', url_end, 'cbW') > 0
+            let s_pos = getcurpos()
+            if search('`\ze_', 'eW')
+                let e_pos = getcurpos()
+                if s_pos[1] == e_pos[1]
+                    let url_name = getline('.')[s_pos[2]-1 : (e_pos[2] - s_pos[2])]
+                elseif e_pos[1] - s_pos[1] == 1
+                    let url_name = getline(line('.') - 1)[s_pos[2]-1 : ]
+                    let url_name .= ' ' . getline('.')[: e_pos[2]-1]
+                endif
+                let url_name = substitute(url_name, '\s\+', '\\s\\+', 'g')
+            endif
+        endif
+        if !empty(url_name)
+            normal! go
+            if search('^\s*\.\.\s\+_'.url_name.':\s\+\S\+', 'eW')
+                if expand("<cfile>") =~ rx_bare
+                    let URL = expand("<cfile>")
+                endif
+            endif
+        endif
+    finally
+        call winrestview(save_view)
+    endtry
+
     if empty(URL)
         let URL = matchstr(expand("<cfile>"), rx_bare)
     endif

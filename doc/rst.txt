@@ -54,16 +54,32 @@ always turned on for the rst filetype.
 With gx it is possible to open links using appropriate method of an OS
 (xdg-open, open, start).
 
-Currently supported: >
+Anonymous links and naked URLs: >
 
-    Google__
-    `Vim on Github`__
+    Google__   <- gx here
+    `Vim on Github`__ <- gx here
 
     .. __: https://google.com
     __ https://github.com/vim/vim
 
-One can press gx on Google__, Vim on Github__ or naked urls to open them in OS
-default web browser.
+Press gx on Google__, Vim on Github__ or naked urls to open them in OS default
+web browser.
+
+Named links: >
+
+    .. _`Google    search`: https://google.com
+
+    `Google         search`_    Yandex_
+
+    `Google
+    search`_
+
+    Yandex_
+
+    .. _Yandex: https://yandex.ru
+
+Press gx on "Google         search_", Yandex_ to open them in OS default web
+browser.
 
 
 
