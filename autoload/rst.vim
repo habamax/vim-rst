@@ -225,21 +225,27 @@ func! rst#gx() abort
     try
         let save_view = winsaveview()
         let url_start = '\%(^\|[[:space:][\]()"' . "'" . '-:/]\)\zs`\ze[^`[:space:]]'
-        let url_end = '\S`_\ze\%($\|[[:space:].,:;!?"' . "." . '/\\>)\]}]\)'
+        let url_end = '\S\zs`_\ze\%($\|[[:space:].,:;!?"' . "." . '/\\>)\]}]\)'
         let url_name = ''
         if expand("<cfile>") =~ '^.*[^_]_$' 
             let url_name = expand("<cfile>")[:-2]
-        elseif searchpair(url_start, '', url_end, 'cbW') > 0
-            let s_pos = getcurpos()
-            if search('`\ze_', 'eW')
-                let e_pos = getcurpos()
-                if s_pos[1] == e_pos[1]
-                    let url_name = getline('.')[s_pos[2] : e_pos[2] - 2]
-                elseif e_pos[1] - s_pos[1] == 1
-                    let url_name = getline(line('.') - 1)[s_pos[2] : ]
-                    let url_name .= ' ' . getline('.')[: e_pos[2] - 2]
+        endif
+        if empty(url_name)
+            if getline('.')[col('.') - 2:] =~ '`_'
+                normal! 2h
+            endif
+            if searchpair(url_start, '', url_end, 'cbW') > 0
+                let s_pos = getcurpos()
+                if search('`_', 'W')
+                    let e_pos = getcurpos()
+                    if s_pos[1] == e_pos[1]
+                        let url_name = getline('.')[s_pos[2] : e_pos[2] - 2]
+                    elseif e_pos[1] - s_pos[1] == 1
+                        let url_name = getline(line('.') - 1)[s_pos[2] : ]
+                        let url_name .= ' ' . getline('.')[: e_pos[2] - 2]
+                    endif
+                    let url_name = substitute(url_name, '\s\+', '\\s\\+', 'g')
                 endif
-                let url_name = substitute(url_name, '\s\+', '\\s\\+', 'g')
             endif
         endif
         if !empty(url_name)
