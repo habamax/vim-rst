@@ -11,6 +11,7 @@ let s:undo_maps = "| execute 'nunmap <buffer> ]]'"
       \. "| execute 'ounmap <buffer> [['"
       \. "| execute 'xunmap <buffer> ]]'"
       \. "| execute 'xunmap <buffer> [['"
+      \. "| execute 'nunmap <buffer> gx'"
 
 if get(g:, "rst_mappings", 1)
     let s:undo_maps = "| execute 'ounmap <buffer> ie'"
@@ -51,6 +52,7 @@ if get(g:, "rst_mappings", 1)
     onoremap <silent><buffer>ae :<C-u>call rst#environment_tobj(0)<CR>
     xnoremap <silent><buffer>ie :<C-u>call rst#environment_tobj(1)<CR>
     xnoremap <silent><buffer>ae :<C-u>call rst#environment_tobj(0)<CR>
+    nnoremap <silent><buffer>gx :<C-u>call rst#gx()<CR>
 endif
 
 nnoremap <silent><buffer> ]] :<c-u>call rst#section(0, v:count1)<CR>

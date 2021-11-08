@@ -17,11 +17,13 @@ SETTINGS                                                        *rst-settings*
 *g:rst_mappings*
 
 Whether to use or not default mappings.
+Default: 1
+
+                                                            *rst_text_objects*
 
     ie   inner environment
     ae   an environment
 
-Default: 1
 
 An environment is either a directive or a section, thus one could select a
 section with vae: >
@@ -46,6 +48,24 @@ Second ae would select a section.
 
 NOTE: there are ]] and [[ mapped to jump to next or previous section, it is
 always turned on for the rst filetype.
+
+
+                                                                      *rst_gx*
+With gx it is possible to open links using appropriate method of an OS
+(xdg-open, open, start).
+
+Currently supported: >
+
+    Google__
+    `Vim on Github`__
+
+    .. __: https://google.com
+    __ https://github.com/vim/vim
+
+One can press gx on Google__, Vim on Github__ or naked urls to open them in OS
+default web browser.
+
+
 
 
 *g:rst_minlines*

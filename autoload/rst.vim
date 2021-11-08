@@ -158,3 +158,100 @@ func! s:min_indent(start, end) abort
     let lnums = filter(range(a:start, a:end), {_,lnum -> !empty(getline(lnum))})
     return min(map(lnums, {_,lnum -> indent(lnum)}))
 endfunc
+
+
+" gx to open URLs.
+" - anonymous__
+" - `anonymous link`__
+" - handle naked urls
+" - TODO: more
+func! rst#gx() abort
+    " URL regexes
+    let rx_base = '\%(\%(http\|ftp\|irc\)s\?\|file\)://\S'
+    let rx_bare = rx_base . '\+'
+    let rx_embd = rx_base . '\{-}'
+
+    let URL = ""
+
+    " `Google search`__
+    " Yandex__
+    " ...
+    " __ https://google.com
+    " __ https://yandex.ru
+    " Scan document from top to cursor position, find matching __
+    try
+        let save_view = winsaveview()
+        let url_start = '\%(^\|[[:space:][\]()"' . "'" . '-:/]\)\zs`\ze[^`[:space:]]'
+        let url_end = '\S`__\ze\%($\|[[:space:].,:;!?"' . "." . '/\\>)\]}]\)'
+        if expand("<cfile>") =~ '^.*__$' || searchpair(url_start, '', url_end, 'ncbW') > 0
+            let url_cnt = 0
+            normal! go
+            while search('\%(\<\S\{-}__\>\)\|\%(^\s*\%(__\s\+\S\+\)\|\%(\.\.\s\+__:\s\+\S\+\)\)', 'eW', save_view.lnum)
+                if search('\<\S\{-}__\>', 'ncbW')
+                    let url_cnt += 1
+                else
+                    let url_cnt -= 1
+                endif
+                if line('.') == save_view.lnum && col('.') > save_view.col
+                    break
+                endif
+            endwhile
+            while url_cnt > 0
+                if search('^\s*\%(__\s\+\S\+\)\|\%(\.\.\s\+__:\s\+\S\+\)', 'eW')
+                    let url_cnt -= 1
+                else
+                    break
+                endif
+            endwhile
+            if !url_cnt && expand("<cfile>") =~ rx_bare
+                let URL = expand("<cfile>")
+            endif
+        endif
+    finally
+        call winrestview(save_view)
+    endtry
+
+    " naked URL http://google.com
+    if empty(URL)
+        let URL = matchstr(expand("<cfile>"), rx_bare)
+    endif
+
+    if empty(URL)
+        return
+    endif
+
+    call s:open(escape(URL, '#%!'))
+endfunc
+
+
+" Open URL in an OS
+func! s:open(url) abort
+    let url = a:url
+    if exists("$WSLENV")
+        lcd /mnt/c
+        let cmd = ":silent !cmd.exe /C start"
+    elseif has("win32") || has("win32unix")
+        let cmd = ':silent !start'
+    elseif executable('xdg-open')
+        let cmd = ":silent !xdg-open"
+    elseif executable('open')
+        let cmd = ":silent !open"
+    else
+        echohl Error
+        echomsg "Can't find proper opener for an URL!"
+        echohl None
+        return
+    endif
+
+    try
+        echom cmd . ' "' . url . '"'
+        exe cmd . ' "' . url . '"'
+    catch
+        echohl Error
+        echomsg v:exception
+        echohl None
+    finally
+        if exists("$WSLENV") | lcd - | endif
+        redraw!
+    endtry
+endfunc
