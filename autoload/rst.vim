@@ -189,8 +189,9 @@ endfunc
 " gx to open URLs.
 " - anonymous__
 " - `anonymous link`__
-" - handle naked urls
-" - TODO: more
+" - namedlink_
+" - `named link with spaces`_
+" - naked urls
 func! rst#gx() abort
     " URL regexes
     let rx_base = '\%(\%(http\|ftp\|irc\)s\?\|file\)://\S'
