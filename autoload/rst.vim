@@ -119,7 +119,7 @@ func! s:section_tobj(inner) abort
                 -1
             endif
         endif
-        if getline(prevnonblank('.')) =~ '^\s*\.\.\s\+_[^_[:space:]]\+:\s*$'
+        if getline(prevnonblank('.')) =~ '^\s*\.\.\s\+_[^_[:space:]].*:\s*$'
             exe nextnonblank(line('.') + 1)
         endif
         normal! 0
@@ -136,7 +136,7 @@ func! s:section_tobj(inner) abort
         endif
 
         " check for the .. _anchor: and adjust start position
-        if !a:inner && getline(prevnonblank(lnum_start - 1)) =~ '^\s*\.\.\s\+_[^_[:space:]]\+:\s*$'
+        if !a:inner && getline(prevnonblank(lnum_start - 1)) =~ '^\s*\.\.\s\+_[^_[:space:]].*:\s*$'
             let lnum_start = prevnonblank(lnum_start - 1)
         endif
 
@@ -160,14 +160,14 @@ func! s:section_tobj(inner) abort
                     return [0, 0]
                 endif
                 " lnum_start is an anchor to other section
-                if getline(lnum_start) =~ '^\s*\.\.\s\+_[^_[:space:]]\+:\s*$'
+                if getline(lnum_start) =~ '^\s*\.\.\s\+_[^_[:space:]].*:\s*$'
                       \ && lnum_start == lnum_end
                     return [0, 0]
                 endif
             endif
 
             " check for the .. _anchor: and adjust end position
-            if getline(prevnonblank(lnum_end)) =~ '^\s*\.\.\s\+_[^_[:space:]]\+:\s*$'
+            if getline(prevnonblank(lnum_end)) =~ '^\s*\.\.\s\+_[^_[:space:]].*:\s*$'
                 let lnum_end = prevnonblank(prevnonblank(lnum_end) - 1)
             endif
 
