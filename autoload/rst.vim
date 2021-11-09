@@ -168,7 +168,11 @@ func! s:section_tobj(inner) abort
 
             " check for the .. _anchor: and adjust end position
             if getline(prevnonblank(lnum_end)) =~ '^\s*\.\.\s\+_[^_[:space:]].*:\s*$'
-                let lnum_end = prevnonblank(prevnonblank(lnum_end) - 1)
+                if a:inner
+                    let lnum_end = prevnonblank(prevnonblank(lnum_end) - 1)
+                else
+                    let lnum_end -= 2
+                endif
             endif
 
             return [lnum_start, lnum_end]
