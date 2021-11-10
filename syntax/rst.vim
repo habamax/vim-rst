@@ -173,10 +173,10 @@ syn cluster rstDirectives contains=rstFootnote,rstCitation,
       \ rstHyperLinkTarget,rstLiteralBlock,rstQuotedLiteralBlock,
       \ rstListItem,@rstTables
 
-syn match rstComment /^\s*\.\./
+syn match rstComment /^\s*\.\.\ze\s*$/
 
 syn region rstComment
-      \ start='^\(\z(\s*\)\)\.\.\_s\?\s*\S'
+      \ start='^\(\z(\s*\)\)\.\.\_s\?\s\+\S'
       \ skip='^\ze\z1\s\+\S'
       \ end='^\ze\s*\S'
       \ keepend
