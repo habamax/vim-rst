@@ -15,7 +15,7 @@ syn case ignore
 syn cluster rstInlineMarkup contains=rstEmphasis,rstStrongEmphasis,
       \ rstInterpretedText,rstInlineLiteral,rstSubstitutionReference,
       \ rstInlineInternalTarget,rstFootnoteReference,rstHyperlinkReference,
-      \ rstStandaloneHyperlink,rstFieldName,rstListItem
+      \ rstStandaloneHyperlink,rstFieldName
 
 syn match rstLineBlock /^\s*|/ contained
 
@@ -94,7 +94,6 @@ for s:ch in [['(', ')'], ['{', '}'], ['<', '>'], ['\[', '\]'], ['"', '"'], ["'",
 endfor
 
 
-" TODO: should not contain rstLineBlock which is in @rstInlineMarkup
 syn cluster rstTables contains=rstTable,rstSimpleTable
 syn region rstTable transparent
       \ start='^\n\s*+\%(-\++\)\+\s*$'
@@ -170,7 +169,7 @@ syn region rstFieldName start=+^\s*:\ze\S+ skip=+\\:+ end=+\S\zs:\ze\(\s\|$\)+ o
 syn cluster rstDirectives contains=rstFootnote,rstCitation,
       \ rstComment,rstExDirective,rstCodeBlock,
       \ rstHyperLinkTarget,rstLiteralBlock,rstQuotedLiteralBlock,
-      \ @rstTables
+      \ rstListItem,@rstTables
 
 syn match rstComment /^\s*\.\./
 
