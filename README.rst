@@ -31,7 +31,7 @@ Difference to bundled reStructuredText
 
 - Roles are highlighted such as ``:kbd:`Enter```.
 
-- List items are highlighted (although not in tables).
+- List items are highlighted.
 
 - Simple table delimiters with empty rows are highlighted.
 

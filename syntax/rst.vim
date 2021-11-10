@@ -17,10 +17,11 @@ syn cluster rstInlineMarkup contains=rstEmphasis,rstStrongEmphasis,
       \ rstInlineInternalTarget,rstFootnoteReference,rstHyperlinkReference,
       \ rstStandaloneHyperlink,rstFieldName
 
-syn match rstLineBlock /^\s*|/ contained
+syn match rstLineBlock /^\s*|\ze\s/
 
 if exists("g:rst_listitem")
-    execute 'syn match rstListItem /' . g:rst_listitem . '\ze\s\+/ contains=rstLineBlock'
+    execute 'syn match rstListItem /^\s*\%(' . g:rst_listitem . '\)\ze\s\+/ contains=rstLineBlock'
+    execute 'syn match rstTableListItem /|\@<=\s*\%(' . g:rst_listitem . '\)\ze\s\+/ contained'
 endif
 
 " Inline markup recognition rules
@@ -100,7 +101,7 @@ syn region rstTable transparent
       \ skip='^\s*[|+]'
       \ end='^\s*$'
       \ end='^\ze\s*\S'
-      \ contains=rstTableLines,@rstInlineMarkup
+      \ contains=rstTableLines,rstTableListItem,@rstInlineMarkup
 syn match rstTableLines contained display '|\|+\%(=\+\|-\+\)\='
 
 syn match rstSimpleTable
@@ -285,6 +286,7 @@ hi def link rstExDirective                  rstDirective
 hi def link rstFieldName                    Constant
 hi def link rstLineBlock                    rstDelimiter
 hi def link rstListItem                     Constant
+hi def link rstTableListItem                rstListItem
 hi def link rstInterpretedText              Identifier
 hi def link rstInlineLiteral                String
 hi def link rstSubstitutionReference        PreProc

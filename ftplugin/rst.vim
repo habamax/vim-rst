@@ -31,7 +31,7 @@ compiler rst2html
 setlocal commentstring=..\ %s
 setlocal comments=
 
-let g:rst_listitem = '^\s*\%('
+let g:rst_listitem = '\s*\%('
 let g:rst_listitem .= '\%([-+*]\)'
 let g:rst_listitem .= '\|'
 let g:rst_listitem .= '\%(\d\+[.)]\)'
@@ -41,11 +41,9 @@ let g:rst_listitem .= '\|'
 let g:rst_listitem .= '\%(\%(\a\|#\)[.)]\)'
 let g:rst_listitem .= '\|'
 let g:rst_listitem .= '\%((\%(\a\|#\))\)'
-let g:rst_listitem .= '\|'
-let g:rst_listitem .= '\%(|\)'
 let g:rst_listitem .= '\)'
 
-let &l:formatlistpat = g:rst_listitem . '\s\+'
+let &l:formatlistpat = '^\s*\%(' . g:rst_listitem . '\|\%(|\)\)\s\+'
 
 
 if get(g:, "rst_mappings", 1)
