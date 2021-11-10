@@ -94,10 +94,16 @@ for s:ch in [['(', ')'], ['{', '}'], ['<', '>'], ['\[', '\]'], ['"', '"'], ["'",
 endfor
 
 
+" TODO: should not contain rstLineBlock which is in @rstInlineMarkup
 syn cluster rstTables contains=rstTable,rstSimpleTable
-syn region rstTable transparent start='^\n\s*+[-=+]\+' end='^$'
+syn region rstTable transparent
+      \ start='^\n\s*+\%(-\++\)\+\s*$'
+      \ skip='^\s*[|+]'
+      \ end='^\s*$'
+      \ end='^\ze\s*\S'
       \ contains=rstTableLines,@rstInlineMarkup
 syn match rstTableLines contained display '|\|+\%(=\+\|-\+\)\='
+
 syn match rstSimpleTable
       \ '^\s*\%(===\+\)\%(\s*===\+\)\+\s*$'
 syn match rstSimpleTable
