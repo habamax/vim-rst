@@ -97,7 +97,8 @@ endfor
 
 syn cluster rstTables contains=rstTable,rstSimpleTable
 syn region rstTable transparent
-      \ start='^\n\s*+\%(-\++\)\+\s*$'
+      \ start='^\s\++\%(-\++\)\+\s*$'
+      \ start='^\s*\n\++\%(-\++\)\+\s*$'
       \ skip='^\s*[|+]'
       \ end='^\s*$'
       \ end='^\ze\s*\S'
