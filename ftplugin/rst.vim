@@ -3,7 +3,7 @@ if exists("b:did_ftplugin")
 endif
 let b:did_ftplugin = 1
 
-let s:undo_opts = "setl flp< com<"
+let s:undo_opts = "setl flp< com< cms<"
 
 let s:undo_maps = "| execute 'nunmap <buffer> ]]'"
       \. "| execute 'nunmap <buffer> [['"
@@ -28,6 +28,7 @@ endif
 
 compiler rst2html
 
+setlocal commentstring=..\ %s
 setlocal comments=
 
 let g:rst_listitem = '^\s*\%('
