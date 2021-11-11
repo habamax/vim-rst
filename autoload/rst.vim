@@ -195,6 +195,7 @@ endfunc
 " - `anonymous link`__
 " - namedlink_
 " - `named link with spaces`_
+" - `named link with <actual link name_>`_
 " - naked urls
 func! rst#gx() abort
     " URL regexes
@@ -253,16 +254,17 @@ func! rst#gx() abort
     " ...
     " `Google        search`_
     " .. _Yandex: https://yandex.ru
+    "
+    "  angle brackets `exits through with-statements <issue 1270_>`_.
+    "
+    ".. _issue 1270: https://github.com/nedbat/coveragepy/issues/1270
     try
         let save_view = winsaveview()
         let url_start = '\%(^\|[[:space:][\]()"' . "'" . '-:/]\)\zs`\ze[^`[:space:]]'
         let url_end = '\S\zs`_\ze\%($\|[[:space:].,:;!?"' . "." . '/\\>)\]}]\)'
         let url_name = ''
-        if expand("<cfile>") =~ '^.*[^_]_$' 
-            let url_name = expand("<cfile>")[:-2]
-        endif
         if empty(url_name)
-            if getline('.')[col('.') - 2:] =~ '`_'
+            if col('.') > 2 && getline('.')[col('.') - 2 : col('.') + 2] =~ '`_'
                 normal! 2h
             endif
             if searchpair(url_start, '', url_end, 'cbW') > 0
@@ -275,6 +277,12 @@ func! rst#gx() abort
                         let url_name = getline(line('.') - 1)[s_pos[2] : ]
                         let url_name .= ' ' . getline('.')[: e_pos[2] - 2]
                     endif
+                    " Check for angle brackets `exits through with-statements <issue 1270_>`_
+                    " and use it instead
+                    let url_sub_name = matchstr(url_name, '<\zs.\{-}[^_]\ze_>')
+                    if !empty(url_sub_name)
+                        let url_name = url_sub_name
+                    endif
                     let url_name = substitute(url_name, '\s\+', '\\s\\+', 'g')
                 endif
             endif
@@ -286,6 +294,9 @@ func! rst#gx() abort
                     let URL = expand("<cfile>")
                 endif
             endif
+        endif
+        if empty(url_name) && expand("<cfile>") =~ '^.*[^_]_$' 
+            let url_name = expand("<cfile>")[:-2]
         endif
     finally
         call winrestview(save_view)
