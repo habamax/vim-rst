@@ -166,7 +166,7 @@ syn region rstDoctestBlock
       \ keepend
 syn match rstDoctestBlockPrompt contained '^\s*>>>\s\+'
 
-syn region rstFieldName start=+^\s*:\ze\S+ skip=+\\:+ end=+\S\zs:\ze\(\s\|$\)+ oneline
+syn match rstFieldName '^\s*\zs:[[:alnum:]]\%(\%(\\:\s*\)\?[[:space:]-_.+]\?[[:alnum:]]\+\)\{-}:\ze\%(\s\|$\)'
 
 syn cluster rstDirectives contains=rstFootnote,rstCitation,
       \ rstComment,rstExDirective,rstCodeBlock,
