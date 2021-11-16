@@ -69,7 +69,8 @@ func! s:directive_tobj(inner) abort
     if indent(lnum_start) >= s:min_indent(lnum_start + 1, lnum_cur) | return [0, 0] | endif
     let lnum_end = search('\(^\s\{,' . indent(lnum_start) . '}\S\)\|\%$', "nW")
     if lnum_end
-        if (lnum_end == line('$') && getline(lnum_end) =~ '^\s*$') || lnum_end != line('$')
+        if (lnum_end == line('$') && (getline(lnum_end) =~ '^\s*$' || indent(lnum_end) <= indent(lnum_start)))
+              \ || lnum_end != line('$')
             let lnum_end = prevnonblank(lnum_end - 1)
         endif
         if a:inner
