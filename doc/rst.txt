@@ -93,7 +93,7 @@ Default: 50
 
 *g:rst_syntax_code_list*
 
-Dictionary of syntax to be included into code blocks.
+Dictionary of syntaxes to be highlighted withing code blocks.
 
 Default: {}
 
