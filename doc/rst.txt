@@ -82,8 +82,6 @@ Press gx on "Google         search_", Yandex_ to open them in OS default web
 browser.
 
 
-
-
 *g:rst_minlines*
 
 Syntax sync min lines. See |:syn-sync| for details.
