@@ -288,6 +288,9 @@ func! rst#gx() abort
                 endif
             endif
         endif
+        if empty(url_name) && expand("<cfile>") =~ '^.*[^_]_$' 
+            let url_name = expand("<cfile>")[:-2]
+        endif
         if !empty(url_name)
             normal! go
             if search('^\s*\.\.\s\+_\(`\)\?' . url_name . '\1:\s\+\S\+', 'eW')
@@ -295,9 +298,6 @@ func! rst#gx() abort
                     let URL = expand("<cfile>")
                 endif
             endif
-        endif
-        if empty(url_name) && expand("<cfile>") =~ '^.*[^_]_$' 
-            let url_name = expand("<cfile>")[:-2]
         endif
     finally
         call winrestview(save_view)
