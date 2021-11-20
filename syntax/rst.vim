@@ -183,7 +183,7 @@ syn region rstComment
 
 syn region rstExDirective
       \ matchgroup=rstDirective
-      \ start='^\z(\s*\)\.\.\s\+.\{-}::\ze\%([^:]\|$\)'
+      \ start='^\z(\s*\)\.\.\s\+\%(|.\{-}|\s\+\)\?[^[:space:]]\{-}[^:]::\ze\%([^:]\|$\)'
       \ start='^\(\z(\s*\)\)\.\.\s\+|.\{-}|\s*\n\1\s\+.\{-}::\ze\%([^:]\|$\)'
       \ skip='^\ze\z1\s\+\S'
       \ end='^\ze\s*\S'
@@ -227,7 +227,7 @@ syn region rstCitation matchgroup=rstDirective
 
 syn region rstCodeBlock
       \ matchgroup=rstDirective
-      \ start='^\z(\s*\)\.\.\s\+\c\%(sourcecode\|code\%(-block\)\=\)::.*'
+      \ start='^\z(\s*\)\.\.\s\+\c\%(sourcecode\|code\%(-block\)\=\)\s\?::[^:]*'
       \ skip='^\ze\z1\s\+\S'
       \ matchgroup=NONE
       \ end='^\ze\s*\S'
@@ -245,7 +245,7 @@ for s:filetype in keys(get(g:, "rst_syntax_code_list", {}))
     exe 'syn include @rstSyntax'.s:filetype.' syntax/'.s:filetype.'.vim'
     exe 'syn region rstCodeBlock'.s:filetype
           \. ' matchgroup=rstDirective'
-          \. ' start=#^\z(\s*\)\.\.\s\+\c\%(sourcecode\|code\%(-block\)\=\)::\s\+'.s:alias_pattern.'\s*$#'
+          \. ' start=#^\z(\s*\)\.\.\s\+\c\%(sourcecode\|code\%(-block\)\=\)\s\?::\s\+'.s:alias_pattern.'\s*$#'
           \. ' skip=#^\ze\z1\s\+\S#'
           \. ' matchgroup=NONE'
           \. ' end=#^\ze\s*\S#'
