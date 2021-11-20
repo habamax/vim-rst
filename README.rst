@@ -17,9 +17,9 @@ Or use instructions of your plugin manager or choice.
 Difference to bundled reStructuredText
 ======================================
 
-- ``formatlistpat`` is added (Although it doesn't handle ``ii.`` or ``I.`` etc.).
+- ``formatlistpat`` is added (although it doesn't handle ``ii.`` or ``I.`` etc.).
 
-- Arguably "sane" indentation, that also take into account  ``formatlistpat``.
+- Arguably "sane" indentation.
 
 - Handle nested directives.
 
