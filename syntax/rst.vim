@@ -183,7 +183,7 @@ syn region rstComment
 
 syn region rstExDirective
       \ matchgroup=rstDirective
-      \ start='^\z(\s*\)\.\.\s\+\%(|.\{-}|\s\+\)\?[^[:space:]]\{-}[^:]::\ze\%([^:]\|$\)'
+      \ start='^\z(\s*\)\.\.\s\+\%(|.\{-}|\s\+\)\?[^[:space:]]\{-}[^:]::\ze\%(\s\+\|$\)'
       \ start='^\(\z(\s*\)\)\.\.\s\+|.\{-}|\s*\n\1\s\+.\{-}::\ze\%([^:]\|$\)'
       \ skip='^\ze\z1\s\+\S'
       \ end='^\ze\s*\S'
@@ -227,7 +227,7 @@ syn region rstCitation matchgroup=rstDirective
 
 syn region rstCodeBlock
       \ matchgroup=rstDirective
-      \ start='^\z(\s*\)\.\.\s\+\c\%(sourcecode\|code\%(-block\)\=\)\s\?::[^:]*'
+      \ start='^\z(\s*\)\.\.\s\+\c\%(sourcecode\|code\%(-block\)\=\)\s\?::\%(\s\+\S\+\s*\|\s*$\)'
       \ skip='^\ze\z1\s\+\S'
       \ matchgroup=NONE
       \ end='^\ze\s*\S'
