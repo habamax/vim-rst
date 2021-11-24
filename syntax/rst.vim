@@ -110,11 +110,17 @@ syn match rstSimpleTable
 syn match rstSimpleTable
       \ '^\s*\%(---\+\)\%(\s*---\+\)\+\s*$'
 
-syn match rstSectionDelimiter contained "\v^([=`:.'"~^_*+#-])\1*\s*$"
-syn match rstSection /\v%(%(^%(.*\S.*\n)@<!)|%(%(^%([=`:.'"~^_*+#-])+\n)@<=))\S.*\n([=`:.'"~^_*+#-])\1*$/
-      \ contains=rstSectionDelimiter,@Spell
+syn match rstMaybeSection /\%(^[=`:.'"~^_*+#-]\+\n\)\@<=\S.*\%(\n\S.*$\)\@=/
+      \ transparent
+      \ contains=@rstInlineMarkup,rstSection,rstSimpleTable,rstListItem,rstLineBlock
+syn match rstMaybeSection /\%(^\s*\n\)\@<=\S.*\%(\n\S.*$\)\@=/
+      \ transparent
+      \ contains=@rstInlineMarkup,rstSection,rstSimpleTable,rstListItem,rstLineBlock
+syn match rstSection /^\S.*\n\([=`:.'"~^_*+#-]\)\1*$/
+      \ contained contains=rstSectionDelimiter,@Spell
 syn match rstSection /\v^%(([=`:.'"~^_*+#-])\1*\n).+\n([=`:.'"~^_*+#-])\2*$/
       \ contains=rstSectionDelimiter,@Spell
+syn match rstSectionDelimiter contained "\v^([=`:.'"~^_*+#-])\1*\s*$"
 
 syn match rstFootnoteReference contains=@NoSpell
       \ +\%(\s\|^\)\[\%(\d\+\|#\%([[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*\)\=\|\*\)\]_+
