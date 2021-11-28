@@ -113,7 +113,7 @@ syn match rstSimpleTable
 syn match rstMaybeSection /\%(^[=`:.'"~^_*+#-]\+\n\)\@<=\S.*\%(\n\S.*$\)\@=/
       \ transparent
       \ contains=@rstInlineMarkup,rstSection,rstSimpleTable,rstListItem,rstLineBlock
-syn match rstMaybeSection /\%(^\s*\n\)\@<=\S.*\%(\n\S.*$\)\@=/
+syn match rstMaybeSection /\%(\%(^\s*\n\)\|\%(\%^\)\)\@<=\S.*\%(\n\S.*$\)\@=/
       \ transparent
       \ contains=@rstInlineMarkup,rstSection,rstSimpleTable,rstListItem,rstLineBlock
 syn match rstSection /^\S.*\n\([=`:.'"~^_*+#-]\)\1*$/
