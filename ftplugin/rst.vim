@@ -18,6 +18,10 @@ if get(g:, "rst_mappings", 1)
           \. "| execute 'ounmap <buffer> ae'"
           \. "| execute 'xunmap <buffer> ie'"
           \. "| execute 'xunmap <buffer> ae'"
+          \. "| execute 'ounmap <buffer> iP'"
+          \. "| execute 'ounmap <buffer> aP'"
+          \. "| execute 'xunmap <buffer> iP'"
+          \. "| execute 'xunmap <buffer> aP'"
 endif
 
 if exists('b:undo_ftplugin')
@@ -51,6 +55,10 @@ if get(g:, "rst_mappings", 1)
     onoremap <silent><buffer>ae :<C-u>call rst#environment_tobj(0)<CR>
     xnoremap <silent><buffer>ie :<C-u>call rst#environment_tobj(1)<CR>
     xnoremap <silent><buffer>ae :<C-u>call rst#environment_tobj(0)<CR>
+    onoremap <silent><buffer>iP :<C-u>call rst#section_tobj(1)<CR>
+    onoremap <silent><buffer>aP :<C-u>call rst#section_tobj(0)<CR>
+    xnoremap <silent><buffer>iP :<C-u>call rst#section_tobj(1)<CR>
+    xnoremap <silent><buffer>aP :<C-u>call rst#section_tobj(0)<CR>
     nnoremap <silent><buffer>gx :<C-u>call rst#gx()<CR>
 endif
 

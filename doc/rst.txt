@@ -23,6 +23,8 @@ Default: 1
 
     ie   inner environment
     ae   an environment
+    iP   inner section (doesn't include sub-sections)
+    aP   a section (doesn't include sub-sections)
 
 
 An environment is either a directive or a section, thus one could select a
@@ -45,6 +47,7 @@ Or a directive: >
         A note<cursor>
 
 Second ae would select a section.
+
 
 NOTE: there are ]] and [[ mapped to jump to next or previous section, it is
 always turned on for the rst filetype.

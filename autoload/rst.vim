@@ -8,6 +8,7 @@ func! rst#section(back, cnt)
     endfor
 endfunc
 
+
 " Environment text object (either directive or a section)
 " NOTE: section does not include subsections
 func! rst#environment_tobj(inner) range abort
@@ -35,6 +36,24 @@ func! rst#environment_tobj(inner) range abort
             let lnum_start = lnum_sstart
             let lnum_end = lnum_send
         endif
+    endif
+
+    if lnum_end
+        exe lnum_end
+        normal! V
+        exe lnum_start
+    endif
+endfunc
+
+
+" Section text object
+" NOTE: does not include subsections
+func! rst#section_tobj(inner) range abort
+    let lnum_cur = line('.')
+    let [lnum_start, lnum_end] = s:section_tobj(a:inner)
+
+    if lnum_start == 0
+        return
     endif
 
     if lnum_end
