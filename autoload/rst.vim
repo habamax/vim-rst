@@ -235,7 +235,7 @@ func! rst#gx() abort
         let save_view = winsaveview()
         let url_start = '\%(^\|[[:space:][\]()"' . "'" . '-:/]\)\zs`\ze[^`[:space:]]'
         let url_end = '\S`__\ze\%($\|[[:space:].,:;!?"' . "." . '/\\>)\]}]\)'
-        if expand("<cWORD>") =~ '^.*__$' || searchpair(url_start, '', url_end, 'ncbW') > 0
+        if expand("<cfile>") =~ '^.*__$' || searchpair(url_start, '', url_end, 'ncbW') > 0
             let url_cnt = 0
             normal! go
             while search('\%(\<\S\{-}__\>\)\|\%(^\s*\%(__\s\+\S\+\)\|\%(\.\.\s\+__:\s\+\S\+\)\)', 'eW', save_view.lnum)
@@ -307,8 +307,8 @@ func! rst#gx() abort
                 endif
             endif
         endif
-        if empty(url_name) && expand("<cWORD>") =~ '^.*[^_]_$' 
-            let url_name = expand("<cWORD>")[:-2]
+        if empty(url_name) && expand("<cfile>") =~ '^.*[^_]_$' 
+            let url_name = expand("<cfile>")[:-2]
         endif
         if !empty(url_name)
             normal! go
