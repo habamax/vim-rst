@@ -339,13 +339,13 @@ func! s:open(url) abort
     let url = a:url
     if exists("$WSLENV")
         lcd /mnt/c
-        let cmd = ":silent !cmd.exe /C start"
+        let cmd = ':silent !cmd.exe /C start "%s"'
     elseif has("win32") || has("win32unix")
-        let cmd = ':silent !start'
+        let cmd = ':silent !start "%s"'
     elseif executable('xdg-open')
-        let cmd = ":silent !xdg-open"
+        let cmd = ':silent !xdg-open "%s" > /dev/null 2>&1 &'
     elseif executable('open')
-        let cmd = ":silent !open"
+        let cmd = ':silent !open "%s"'
     else
         echohl Error
         echomsg "Can't find proper opener for an URL!"
@@ -354,8 +354,7 @@ func! s:open(url) abort
     endif
 
     try
-        echom cmd . ' "' . url . '"'
-        exe cmd . ' "' . url . '"'
+        exe printf(cmd, url)
     catch
         echohl Error
         echomsg v:exception
