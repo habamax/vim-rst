@@ -343,7 +343,7 @@ func! s:open(url) abort
     elseif has("win32") || has("win32unix")
         let cmd = ':silent !start "%s"'
     elseif executable('xdg-open')
-        let cmd = ':silent !xdg-open "%s" > /dev/null 2>&1 &'
+        let cmd = ':silent !xdg-open "%s" &> /dev/null &'
     elseif executable('open')
         let cmd = ':silent !open "%s"'
     else
