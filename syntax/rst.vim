@@ -51,7 +51,6 @@ syn region rstInlineInternalTarget matchgroup=rstDelimiter
 
 syn region rstInterpretedText matchgroup=rstDelimiter contains=rstStandaloneHyperlink
       \ start=+\(^\|[[:space:]-:/]\)\zs\%(:[[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*:\)\?`\ze[^`[:space:]]+
-      \ skip=+\\`+
       \ end=+\S\zs`_\{0,2}\ze\($\|[[:space:].,:;!?"'/\\>)\]}]\)+
       \ end=+\S\zs`\%(:[[:alnum:]]\%([-_.:+]\?[[:alnum:]]\+\)*:\)\?\ze\($\|[[:space:]-.,:;!?"'/\\>)\]}]\)+
       \ concealends
