@@ -42,6 +42,20 @@ Difference to bundled reStructuredText
 __ https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#inline-markup-recognition-rules
 
 
+Additional things you could try
+===============================
+
+- `Fuzzy Table Of Contents`_ for Vim9
+- `Auto adjust section delimiters`_
+- `Generate PDF using Chrome web browser`_
+- `Preview HTML version in web browser`_
+
+.. _Fuzzy Table Of Contents: https://github.com/habamax/vim-rst/wiki/Fuzzy-Table-Of-Contents
+.. _Auto adjust section delimiters: https://github.com/habamax/vim-rst/wiki/Auto-adjust-section-delimiters
+.. _Generate PDF using Chrome web browser: https://github.com/habamax/vim-rst/wiki/Generate-PDF-using-Chrome-web-browser
+.. _Preview HTML version in web browser: https://github.com/habamax/vim-rst/wiki/Preview-HTML-version-in-web-browser
+
+
 Screens
 =======
 
