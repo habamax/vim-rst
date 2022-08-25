@@ -220,8 +220,8 @@ endfunc
 func! rst#gx() abort
     " URL regexes
     let rx_base = '\%(\%(http\|ftp\|irc\)s\?\|file\)://\S'
-    let rx_bare = rx_base . '\+'
-    let rx_embd = rx_base . '\{-}'
+    let rx_bare = rx_base .. '\+'
+    let rx_embd = rx_base .. '\{-}'
 
     let URL = ""
 
