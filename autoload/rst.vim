@@ -238,8 +238,8 @@ func! rst#gx() abort
         if expand("<cfile>") =~ '^.*__$' || searchpair(url_start, '', url_end, 'ncbW') > 0
             let url_cnt = 0
             normal! go
-            while search('\%(\<\S\{-}__\>\)\|\%(^\s*\%(__\s\+\S\+\)\|\%(\.\.\s\+__:\s\+\S\+\)\)', 'eW', save_view.lnum)
-                if search('\<\S\{-}__\>', 'ncbW')
+            while search('\%(\<\S\{1,}__\>\)\|\%(^\s*\%(__\s\+\S\+\)\|\%(\.\.\s\+__:\s\+\S\+\)\)', 'eW', save_view.lnum)
+                if search('\<\S\{1,}__\>', 'ncbW', line('.'))
                     let url_cnt += 1
                 else
                     let url_cnt -= 1
@@ -255,7 +255,7 @@ func! rst#gx() abort
                     break
                 endif
             endwhile
-            if !url_cnt && expand("<cWORD>") =~ rx_bare
+            if url_cnt == 0 && expand("<cWORD>") =~ rx_bare
                 let URL = expand("<cWORD>")
             endif
         endif
