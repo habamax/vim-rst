@@ -146,7 +146,7 @@ func! s:section_tobj(inner) abort
         let lnum_start = search(section, "cbW")
         if !lnum_start | return [0, 0] | endif
         if getline(lnum_start) !~ '^\(' . delims . '\)\1*$'
-              \ && getline(lnum_start - 1) =~ '^\(' . delims . '\)\1*$'
+              \ && getline(lnum_start - 1) == getline(lnum_start + 1)
             let lnum_start -= 1
         endif
         if getline(lnum_start) =~ '^\(' . delims . '\)\1*$'
