@@ -232,8 +232,8 @@ syn region rstCitation matchgroup=rstDirective
 
 syn region rstPythonDirectiveValue
       \ start='\%(\z(\s*\)\.\.\s\+\S\+\s\?::\)\@<=\s*'
-      \ skip='^\ze\s\{2,16}\S'
-      \ end='^\ze\s*\S'
+      \ skip='^\ze\s\{4,16}\S'
+      \ end='^\ze\z1\s*:\S\+:'
       \ end='^\ze\s*$'
       \ contained
 
