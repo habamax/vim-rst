@@ -1,6 +1,6 @@
-*******************************************************************************
+###############################################################################
                        vim-rst: reStructuredText for Vim
-*******************************************************************************
+###############################################################################
 
 
 Installation
@@ -11,7 +11,7 @@ arbitrary directory name inside ``/pack``::
 
   git clone https://github.com/habamax/vim-rst ~/.vim/pack/plugins/start/
 
-Or use instructions of your plugin manager or choice.
+Or use instructions of your plugin manager of choice.
 
 
 Difference to bundled reStructuredText
