@@ -173,7 +173,7 @@ syn match rstDoctestBlockPrompt contained '^\s*>>>\s\+'
 
 syn match rstFieldName '^\s*\zs:[[:alnum:]]\%(\%(\\:\s*\)\?[[:space:]-_.+]\?[[:alnum:]]\+\)\{-}:\ze\%(\s\|$\)'
 
-syn cluster rstDirectives contains=rstFootnote,rstCitation,
+syn cluster rstDirectives contains=rstFootnote,rstCitation,rstPythonDirective,
       \ rstComment,rstExDirective,rstCodeBlock,
       \ rstHyperLinkTarget,rstLiteralBlock,rstQuotedLiteralBlock,
       \ rstListItem,@rstTables
@@ -229,6 +229,22 @@ syn region rstCitation matchgroup=rstDirective
       \ end='^\ze\s*\S'
       \ keepend
       \ contains=@rstDirectives,@rstInlineMarkup
+
+syn region rstPythonDirectiveValue
+      \ start='\%(\z(\s*\)\.\.\s\+\S\+\s\?::\)\@<=\s*'
+      \ skip='^\ze\s\{2,16}\S'
+      \ end='^\ze\s*\S'
+      \ end='^\ze\s*$'
+      \ contained
+
+syn region rstPythonDirective
+      \ matchgroup=rstDirective
+      \ start='^\z(\s*\)\.\.\s\+\c\%(function\|member\|decorator\|method\)\s\?::'
+      \ skip='^\ze\z1\s\+\S'
+      \ matchgroup=NONE
+      \ end='^\ze\s*\S'
+      \ keepend
+      \ contains=rstPythonDirectiveValue,@rstDirectives,@rstInlineMarkup
 
 syn region rstCodeBlock
       \ matchgroup=rstDirective
