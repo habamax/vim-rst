@@ -237,14 +237,16 @@ syn region rstPythonDirectiveValue
       \ end='^\ze\s*$'
       \ contained
 
-syn region rstPythonDirective
-      \ matchgroup=rstDirective
-      \ start='^\z(\s*\)\.\.\s\+\c\%(function\|member\|decorator\|method\)\s\?::'
-      \ skip='^\ze\z1\s\+\S'
-      \ matchgroup=NONE
-      \ end='^\ze\s*\S'
-      \ keepend
-      \ contains=rstPythonDirectiveValue,@rstDirectives,@rstInlineMarkup
+let s:python_directive = ['c:type', 'c:member', 'function', 'member', 'decorator', 'method']
+exe 'syn region rstPythonDirective'
+      \. ' matchgroup=rstDirective'
+      \. ' start=#^\z(\s*\)\.\.\s\+\c\%(' .. join(s:python_directive, '\|') .. '\)\s\?::#'
+      \. ' skip=#^\ze\z1\s\+\S#'
+      \. ' matchgroup=NONE'
+      \. ' end=#^\ze\s*\S#'
+      \. ' keepend'
+      \. ' contains=rstPythonDirectiveValue,@rstDirectives,@rstInlineMarkup'
+unlet s:python_directive
 
 syn region rstCodeBlock
       \ matchgroup=rstDirective
