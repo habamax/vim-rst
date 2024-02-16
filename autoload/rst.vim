@@ -269,8 +269,6 @@ func! rst#gx() abort
     "
     " Yandex_
     "
-    " `Google
-    " search`_
     " ...
     " `Google        search`_
     " .. _Yandex: https://yandex.ru
@@ -283,28 +281,26 @@ func! rst#gx() abort
         let url_start = '\%(^\|[[:space:][\]()"' . "'" . '-:/]\)\zs`\ze[^`[:space:]]'
         let url_end = '\S\zs`_\ze\%($\|[[:space:].,:;!?"' . "." . '/\\>)\]}]\)'
         let url_name = ''
-        if empty(url_name)
-            if col('.') > 2 && getline('.')[col('.') - 2 : col('.') + 2] =~ '`_'
-                normal! 2h
-            endif
-            if searchpair(url_start, '', url_end, 'ncbW', '', save_view.lnum) > 0
-                let s_pos = getcurpos()
-                if search('`_', 'W')
-                    let e_pos = getcurpos()
-                    if s_pos[1] == e_pos[1]
-                        let url_name = getline('.')[s_pos[2] : e_pos[2] - 2]
-                    elseif e_pos[1] - s_pos[1] == 1
-                        let url_name = getline(line('.') - 1)[s_pos[2] : ]
-                        let url_name .= ' ' . getline('.')[: e_pos[2] - 2]
-                    endif
-                    " Check for angle brackets `exits through with-statements <issue 1270_>`_
-                    " and use it instead
-                    let url_sub_name = matchstr(url_name, '<\zs.\{-}[^_]\ze_>')
-                    if !empty(url_sub_name)
-                        let url_name = url_sub_name
-                    endif
-                    let url_name = substitute(url_name, '\s\+', '\\s\\+', 'g')
+        if col('.') > 2 && getline('.')[col('.') - 2 : col('.') + 2] =~ '`_'
+            normal! 2h
+        endif
+        if searchpair(url_start, '', url_end, 'cbW', '', save_view.lnum) > 0
+            let s_pos = getcurpos()
+            if search('`_', 'W')
+                let e_pos = getcurpos()
+                if s_pos[1] == e_pos[1]
+                    let url_name = getline('.')[s_pos[2] : e_pos[2] - 2]
+                elseif e_pos[1] - s_pos[1] == 1
+                    let url_name = getline(line('.') - 1)[s_pos[2] : ]
+                    let url_name .= ' ' . getline('.')[: e_pos[2] - 2]
                 endif
+                " Check for angle brackets `exits through with-statements <issue 1270_>`_
+                " and use it instead
+                let url_sub_name = matchstr(url_name, '<\zs.\{-}[^_]\ze_>')
+                if !empty(url_sub_name)
+                    let url_name = url_sub_name
+                endif
+                let url_name = substitute(url_name, '\s\+', '\\s\\+', 'g')
             endif
         endif
         if empty(url_name) && expand("<cfile>") =~ '^.*[^_]_$' 
