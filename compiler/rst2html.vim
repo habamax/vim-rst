@@ -10,7 +10,7 @@ let s:input = shellescape(expand("%:p"))
 let s:output = shellescape(expand("%:p:r").".html")
 
 let &l:makeprg = printf("%s %s %s %s",
-      \ get(g:, "rst2html_prg", "rst2html5.py"),
+      \ get(g:, "rst2html_prg", "rst2html5" .. (has("win32") ? ".py" : "")),
       \ get(b:, "rst2html_opts",
       \         get(g:, "rst2html_opts",
       \                 "--input-encoding=utf8"
