@@ -20,7 +20,7 @@ syn cluster rstInlineMarkup contains=rstEmphasis,rstStrongEmphasis,
 syn match rstLineBlock /^\s*|\ze\s/
 
 if exists("g:rst_listitem")
-    execute 'syn match rstListItem /^\s*\%(' . g:rst_listitem . '\)\ze\s\+/ contains=rstLineBlock'
+    execute 'syn match rstListItem /^\s*\%(' . g:rst_listitem . '\)\ze\(\s\+\|\s*$\)/ contains=rstLineBlock'
     execute 'syn match rstTableListItem /|\@<=\s*\%(' . g:rst_listitem . '\)\ze\s\+/ contained'
 endif
 
