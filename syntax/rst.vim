@@ -321,8 +321,13 @@ hi def link rstHyperLinkReference           Identifier
 hi def link rstStandaloneHyperlink          Underlined
 hi def link rstCodeBlock                    String
 hi def link rstDoctestBlockPrompt           rstDelimiter
-hi def rstEmphasis term=italic cterm=italic gui=italic
-hi def rstStrongEmphasis term=bold cterm=bold gui=bold
+if has("patch-9.1.1568")
+    hi def link rstEmphasis                 Italic
+    hi def link rstStrongEmphasis           Bold
+else
+    hi def rstEmphasis term=italic cterm=italic gui=italic
+    hi def rstStrongEmphasis term=bold cterm=bold gui=bold
+endif
 
 let b:current_syntax = "rst"
 
