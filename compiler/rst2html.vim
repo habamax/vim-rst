@@ -10,7 +10,7 @@ let s:input = $'"{expand("%:p")}"'
 let s:output = $'"{expand("%:p:r")}.html"'
 
 let &l:makeprg = printf("%s %s %s %s",
-      \ get(g:, "rst2html_prg", "rst2html5" .. (has("win32") ? ".py" : "")),
+      \ get(g:, "rst2html_prg", "rst2html5"),
       \ get(b:, "rst2html_opts",
       \         get(g:, "rst2html_opts",
       \                 "--input-encoding=utf8"
